@@ -1,4 +1,4 @@
-import { Button, Heading, VStack, Image, HStack, Tag } from "@chakra-ui/react";
+import { Button, Heading, VStack, Image, HStack, Tag,} from "@chakra-ui/react";
 import React from "react";
 import { useRef } from "react";
 import useUpload from "../hooks/useUpload";
@@ -24,7 +24,7 @@ function Upload() {
         onChange={handleChangeImage}
       />
       <VStack>
-        <Heading>Image uploading using Golang and Reactjs</Heading>
+        <Heading>Your online gallery</Heading>
         <Button
           onClick={() => imageRef.current.click()}
           colorScheme="blue"

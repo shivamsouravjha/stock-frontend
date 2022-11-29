@@ -19,8 +19,10 @@ const useUpload = () => {
       setLoading(true);
       const formData = new FormData();
       formData.append("image", image);
-      const res = await axios.post("/", formData);
-      if (res.data.data) {
+      console.log(axios)
+      const res = await axios.post("/api/v1/upload/image", formData);
+      //console.log(res.data);
+      if (res.data) {
         console.log(res.data);
         setUploadedImage(res.data.data);
         toast({
