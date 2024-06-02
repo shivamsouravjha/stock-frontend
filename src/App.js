@@ -3,7 +3,7 @@ import Axios from "axios";
 import Upload from "./components/Upload";
 import SLA from "./components/sla"
 import {Routes, Route, useNavigate} from 'react-router-dom';
-Axios.defaults.baseURL = "http://localhost:3001";
+Axios.defaults.baseURL = "http://localhost:8081";
 
 function App() {
   const navigate = useNavigate();

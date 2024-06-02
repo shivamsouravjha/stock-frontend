@@ -1,19 +1,23 @@
-import { Button, Heading, VStack, Image, HStack, Tag,} from "@chakra-ui/react";
-import React from "react";
-import { useRef } from "react";
+import { Button, Heading, VStack, Image, HStack, Tag, useToast } from "@chakra-ui/react";
+import React, { useRef } from "react";
 import useUpload from "../hooks/useUpload";
 
 function Upload() {
   const imageRef = useRef(null);
+  const toast = useToast();
   const {
     loading,
     image,
-
     handleRemoveImage,
     handleChangeImage,
     handleUploadImage,
     uploadedImage,
   } = useUpload();
+
+  const handleRemove = () => {
+    handleRemoveImage()
+  };
+
   return (
     <>
       <input
@@ -56,20 +60,17 @@ function Upload() {
       {uploadedImage && (
         <VStack my="4">
           <Image
-            src={uploadedImage.imageUrl}
+            src={uploadedImage}
             width="300px"
             height="300px"
             alt={uploadedImage.imageName}
           />
 
           <HStack>
-            <Tag variant="outline" colorScheme="blackAlpha">
-              ~ {Math.floor(uploadedImage.size / 1024)} Kb
-            </Tag>
             <Button
               variant="solid"
               colorScheme="red"
-              onClick={handleRemoveImage}
+              onClick={handleRemove}
               isLoading={loading}
             >
               Delete

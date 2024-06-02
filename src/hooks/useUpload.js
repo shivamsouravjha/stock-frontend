@@ -20,11 +20,18 @@ const useUpload = () => {
       const formData = new FormData();
       formData.append("image", image);
       console.log(axios)
-      const res = await axios.post("/api/v1/upload/image", formData);
-      //console.log(res.data);
+      const res = await axios.post("/api/cat", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      console.log(res.data);
       if (res.data) {
         console.log(res.data);
-        setUploadedImage(res.data.data);
+        const imageUrl = res.data ? res.data : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7sjRsyfEjbxtT1T-GCgW6N5VfI8B28-jPIg&s";
+        console.log(imageUrl)
+        setUploadedImage(imageUrl);
         toast({
           title: "Image Uploaded",
           description: res.data.message,
@@ -42,27 +49,11 @@ const useUpload = () => {
   };
 
   const handleRemoveImage = async () => {
-    try {
-      setLoading(true);
-
-      const res = await axios.delete(`/${uploadedImage.imageName}`);
-      if (res.data) {
-        console.log(res.data);
-        setUploadedImage(null);
-        toast({
-          title: "Image Deleted",
-          description: res.data.message,
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
+    if (!uploadedImage) return;
+    setUploadedImage(null);
+  
   };
+
   return {
     image,
     uploadedImage,
