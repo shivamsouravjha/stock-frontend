@@ -3,7 +3,7 @@ import Axios from "axios";
 import Upload from "./components/Upload";
 import SLA from "./components/sla"
 import {Routes, Route, useNavigate} from 'react-router-dom';
-Axios.defaults.baseURL = "http://localhost:8081";
+Axios.defaults.baseURL = "https://cat-r5qc.onrender.com";
 
 function App() {
   const navigate = useNavigate();
