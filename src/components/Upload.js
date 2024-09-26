@@ -1,53 +1,50 @@
-import { Button, Heading, VStack, Image, HStack, Tag, useToast } from "@chakra-ui/react";
+import { Button, Heading, VStack, HStack, Text, Stack, Spinner } from "@chakra-ui/react";
 import React, { useRef } from "react";
 import useUpload from "../hooks/useUpload";
+import StockCard from "./stockCard"; // Import StockCard component
 
 function Upload() {
-  const imageRef = useRef(null);
-  const toast = useToast();
-  const {
-    loading,
-    image,
-    handleRemoveImage,
-    handleChangeImage,
-    handleUploadImage,
-    uploadedImage,
-  } = useUpload();
+  const fileRef = useRef(null);
 
-  const handleRemove = () => {
-    handleRemoveImage()
-  };
+  const {
+    files,
+    uploadedFiles,
+    stockDetails, // Get streamed stockDetails
+    loading,
+    handleChangeFiles,
+    handleUploadFiles,
+  } = useUpload();
 
   return (
     <>
       <input
         style={{ display: "none" }}
         type="file"
-        accept="image/*"
-        ref={imageRef}
-        onChange={handleChangeImage}
+        accept=".xlsx"
+        ref={fileRef}
+        onChange={handleChangeFiles}
+        multiple
       />
-      <VStack>
-        <Heading>Your online gallery</Heading>
+      <VStack spacing={4}>
+        <Heading>Upload Your XLSX Files</Heading>
         <Button
-          onClick={() => imageRef.current.click()}
+          onClick={() => fileRef.current.click()}
           colorScheme="blue"
           size="lg"
         >
-          Select Image
+          Select XLSX Files
         </Button>
       </VStack>
 
-      {image && (
-        <VStack my="4">
-          <Image
-            src={URL.createObjectURL(image)}
-            width="300px"
-            height="300px"
-            alt="selected image..."
-          />
+      {/* Show selected XLSX files and upload button */}
+      {files && files.length > 0 && (
+        <VStack my={4} spacing={2}>
+          <Text fontWeight="bold">Selected Files:</Text>
+          {files.map((file, index) => (
+            <Text key={index}>{file.name}</Text>
+          ))}
           <Button
-            onClick={handleUploadImage}
+            onClick={handleUploadFiles}
             variant="outline"
             colorScheme="green"
             isLoading={loading}
@@ -57,26 +54,16 @@ function Upload() {
         </VStack>
       )}
 
-      {uploadedImage && (
-        <VStack my="4">
-          <Image
-            src={uploadedImage}
-            width="300px"
-            height="300px"
-            alt={uploadedImage.imageName}
-          />
+      {/* Show a spinner while loading */}
+      {loading && <Spinner size="xl" />}
 
-          <HStack>
-            <Button
-              variant="solid"
-              colorScheme="red"
-              onClick={handleRemove}
-              isLoading={loading}
-            >
-              Delete
-            </Button>
-          </HStack>
-        </VStack>
+      {/* Render stock details as cards */}
+      {stockDetails.length > 0 && (
+        <Stack direction="row" flexWrap="wrap" mt={6} spacing={4}>
+          {stockDetails.map((stock, index) => (
+            <StockCard key={index} stock={stock} />
+          ))}
+        </Stack>
       )}
     </>
   );

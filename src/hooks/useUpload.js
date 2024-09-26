@@ -1,66 +1,109 @@
 import { useState } from "react";
-import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 
 const useUpload = () => {
-  const [image, setImage] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const [uploadedImage, setUploadedImage] = useState(null);
+  const [files, setFiles] = useState([]); // Array of selected files
+  const [loading, setLoading] = useState(false); // Loading state
+  const [uploadedFiles, setUploadedFiles] = useState([]); // Array of uploaded files
+  const [stockDetails, setStockDetails] = useState([]); // Array of stock details (streamed)
 
   const toast = useToast();
 
-  const handleChangeImage = (e) => {
-    setImage(e.target.files[0]);
+  // Handle selecting multiple XLSX files
+  const handleChangeFiles = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    const validFiles = selectedFiles.filter((file) =>
+      file.name.endsWith(".xlsx")
+    );
+
+    if (validFiles.length > 0) {
+      setFiles(validFiles);
+    } else {
+      toast({
+        title: "Invalid file type",
+        description: "Only .xlsx files are allowed.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
   };
 
-  const handleUploadImage = async () => {
+  // Handle uploading all selected files and start streaming data
+  const handleUploadFiles = async () => {
+    if (files.length === 0) return;
+
+    setLoading(true);
+
     try {
-      setLoading(true);
       const formData = new FormData();
-      formData.append("image", image);
-      console.log(axios)
-      const res = await axios.post("/api/cat", formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      for (const file of files) {
+        formData.append("files", file);
+      }
+
+      // Start streaming data after uploading the file
+      const response = await fetch("https://stock-backend-hz83.onrender.com/api/uploadXlsx", {
+        method: "POST",
+        body: formData,
       });
 
-      console.log(res.data);
-      if (res.data) {
-        console.log(res.data);
-        const imageUrl = res.data ? res.data : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7sjRsyfEjbxtT1T-GCgW6N5VfI8B28-jPIg&s";
-        console.log(imageUrl)
-        setUploadedImage(imageUrl);
-        toast({
-          title: "Image Uploaded",
-          description: res.data.message,
-          status: "success",
-          duration: 4000,
-          isClosable: true,
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+
+      let done = false;
+      let accumulatedData = ''; // To accumulate partial chunks
+
+      // Reading the stream chunks
+      while (!done) {
+        const { value, done: readerDone } = await reader.read();
+        done = readerDone;
+        accumulatedData += decoder.decode(value, { stream: true });
+
+        // Split the accumulated data by newlines to get individual JSON objects
+        const jsonObjects = accumulatedData.split("\n").filter(Boolean);
+
+        jsonObjects.forEach((jsonString) => {
+          try {
+            const stockDetail = JSON.parse(jsonString); // Parse the JSON data
+            setStockDetails((prevDetails) => [...prevDetails, stockDetail]); // Add to stock details state
+          } catch (error) {
+            console.error("Failed to parse stock data:", error, jsonString);
+          }
         });
+
+        // Reset the accumulated data after processing
+        accumulatedData = '';
       }
+
+      setUploadedFiles(files); // Store the uploaded files
+      toast({
+        title: "Files Uploaded",
+        description: "The XLSX file has been uploaded successfully.",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching stock stream:", error);
+      toast({
+        title: "Error",
+        description: "Failed to upload the files.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
     } finally {
-      setImage(null);
       setLoading(false);
     }
   };
 
-  const handleRemoveImage = async () => {
-    if (!uploadedImage) return;
-    setUploadedImage(null);
-  
-  };
-
   return {
-    image,
-    uploadedImage,
+    files,
+    uploadedFiles,
+    stockDetails, // Return stock details for rendering
     loading,
-    handleChangeImage,
-    handleUploadImage,
-    handleRemoveImage,
+    handleChangeFiles,
+    handleUploadFiles,
   };
 };
 
