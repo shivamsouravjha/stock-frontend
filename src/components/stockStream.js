@@ -9,7 +9,7 @@ const StockDataStream = () => {
   useEffect(() => {
     const fetchStockStream = async () => {
       try {
-        const response = await fetch("https://stock-backend-hz83.onrender.com/api/stockStream");
+        const response = await fetch("http://localhost:4000/api/stockStream");
 
         const reader = response.body.getReader();
         const decoder = new TextDecoder("utf-8");
