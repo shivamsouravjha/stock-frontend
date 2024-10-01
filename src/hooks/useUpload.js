@@ -42,7 +42,7 @@ const useUpload = () => {
       }
 
       // Start streaming data after uploading the file
-      const response = await fetch("http://localhost:4000/api/uploadXlsx", {
+      const response = await fetch("https://stock-backend-hz83.onrender.com/api/uploadXlsx", {
         method: "POST",
         body: formData,
       });

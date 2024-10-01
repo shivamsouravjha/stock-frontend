@@ -4,7 +4,7 @@ import Upload from "./components/Upload";
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Analytics } from "@vercel/analytics/react";
 
-Axios.defaults.baseURL = "http://localhost:4000/";
+Axios.defaults.baseURL = "https://stock-backend-hz83.onrender.com/";
 
 function App() {
   const navigate = useNavigate();
