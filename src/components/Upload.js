@@ -2,6 +2,7 @@ import { Button, Heading, VStack, HStack, Text, Stack, Spinner } from "@chakra-u
 import React, { useRef } from "react";
 import useUpload from "../hooks/useUpload";
 import StockCard from "./stockCard"; // Import StockCard component
+import { track } from "@vercel/analytics"; // Import the track function
 
 function Upload() {
   const fileRef = useRef(null);
@@ -14,6 +15,24 @@ function Upload() {
     handleChangeFiles,
     handleUploadFiles,
   } = useUpload();
+
+  const handleSelectFiles = () => {
+    fileRef.current.click();
+    track('file_select', {
+      category: 'Upload',
+      label: 'User selected XLSX files',
+    });
+  };
+
+  // Track file upload
+  const handleUpload = async () => {
+    await handleUploadFiles(); // Wait for upload to complete
+    track('file_upload', {
+      category: 'Upload',
+      label: 'User uploaded XLSX files',
+    });
+  };
+
 
   return (
     <>
@@ -28,7 +47,7 @@ function Upload() {
       <VStack spacing={4}>
         <Heading>Upload Your XLSX Files</Heading>
         <Button
-          onClick={() => fileRef.current.click()}
+          onClick={handleSelectFiles}
           colorScheme="blue"
           size="lg"
         >
@@ -44,7 +63,7 @@ function Upload() {
             <Text key={index}>{file.name}</Text>
           ))}
           <Button
-            onClick={handleUploadFiles}
+            onClick={handleUpload}
             variant="outline"
             colorScheme="green"
             isLoading={loading}
