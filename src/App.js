@@ -3,20 +3,32 @@ import Axios from "axios";
 import Upload from "./components/Upload";
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Analytics } from "@vercel/analytics/react";
-
+import React, { useEffect } from 'react';
+import ReactGA from 'react-ga4'; 
 Axios.defaults.baseURL = "https://stock-backend-hz83.onrender.com/";
+const TRACKING_ID = process.env.REACT_APP_GA_TRACKING_ID;
 
 function App() {
   const navigate = useNavigate();
+  useEffect(() => {
+    ReactGA.initialize(TRACKING_ID); // Initialize Google Analytics with your tracking ID
+    ReactGA.send('pageview'); // Send pageview event when app loads
+  }, []);
 
   const navigateToHome = () => {
-    // 👇️ navigate to /home
     Analytics.track('navigate-home');
+    ReactGA.event({
+      category: 'Navigation',
+      action: 'Navigate to Home',
+    });
     navigate('/');
   };
 
   const navigateAgreement = () => {
-    // 👇️ navigate to /agreement
+    ReactGA.event({
+      category: 'Navigation',
+      action: 'Navigate to Agreement',
+    });
     Analytics.track('navigate-agreement');
     navigate('/agreement');
   };

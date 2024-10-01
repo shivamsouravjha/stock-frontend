@@ -3,6 +3,9 @@ import React, { useRef } from "react";
 import useUpload from "../hooks/useUpload";
 import StockCard from "./stockCard"; // Import StockCard component
 import { track } from "@vercel/analytics"; // Import the track function
+import ReactGA from 'react-ga4'; // Import Google Analytics
+
+const GA_TRACKING_ID = process.env.REACT_APP_GA_TRACKING_ID;
 
 function Upload() {
   const fileRef = useRef(null);
@@ -16,12 +19,20 @@ function Upload() {
     handleUploadFiles,
   } = useUpload();
 
+  ReactGA.initialize(GA_TRACKING_ID); // Replace with your actual Google Analytics tracking ID
+
   const handleSelectFiles = () => {
     fileRef.current.click();
     track('file_select', {
       category: 'Upload',
       label: 'User selected XLSX files',
     });
+    ReactGA.event({
+      category: 'Upload',
+      action: 'Select Files',
+      label: 'User selected XLSX files',
+    });
+
   };
 
   // Track file upload
@@ -29,6 +40,11 @@ function Upload() {
     await handleUploadFiles(); // Wait for upload to complete
     track('file_upload', {
       category: 'Upload',
+      label: 'User uploaded XLSX files',
+    });
+    ReactGA.event({
+      category: 'Upload',
+      action: 'Upload Files',
       label: 'User uploaded XLSX files',
     });
   };
