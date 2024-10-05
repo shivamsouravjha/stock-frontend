@@ -36,6 +36,8 @@ function App() {
     Analytics.track('navigate-agreement');
     navigate('/agreement');
   };
+  console.log("clientId", clientId);
+  console.log("redirectUri", redirectUri);
 return (
     <GoogleOAuthProvider clientId={clientId} redirectUri={redirectUri}>
 
