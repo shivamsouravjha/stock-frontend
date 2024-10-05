@@ -101,6 +101,7 @@ const useUpload = () => {
     files,
     uploadedFiles,
     stockDetails, // Return stock details for rendering
+    setStockDetails, // Destructure the set function for stockDetails
     loading,
     handleChangeFiles,
     handleUploadFiles,
