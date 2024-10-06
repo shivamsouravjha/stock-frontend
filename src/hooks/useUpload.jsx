@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const useUpload = () => {
   const [loading, setLoading] = useState(false);
@@ -54,9 +53,11 @@ const useUpload = () => {
                 try {
                   setStockDetails((prev) => [...prev, jsonObject]);
                 } catch (error) {
+                  console.error(error);
                   console.error("Invalid JSON:", line);
                 }
               } catch (e) {
+                console.error(e);
                 console.error("Invalid JSON:", line);
               }
             }
