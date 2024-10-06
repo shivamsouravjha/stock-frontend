@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 const useUpload = () => {
   const [loading, setLoading] = useState(false);
-  const [uploadPercentage, setUploadPercentage] = useState(0);
   const [stockDetails, setStockDetails] = useState([]);
   const [error, setError] = useState("");
 
@@ -23,65 +22,57 @@ const useUpload = () => {
           formData.append("files", file);
         }
 
-        const response = await axios.post(
+        // let's do it with fetch
+        const response = await fetch(
           "https://stock-backend-hz83.onrender.com/api/uploadXlsx",
-          formData,
           {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-            onUploadProgress: (progressEvent) => {
-              const percentage = Math.round(
-                (progressEvent.loaded * 100) / (progressEvent.total || 1),
-              );
-              setUploadPercentage(percentage);
-            },
-          },
+            method: "POST",
+            body: formData,
+          }
         );
 
-        const response_data = response.data;
+        setLoading(false);
 
-        if (response_data) {
-          try {
-            const lines = response_data.split("\n");
+        if (!response.ok) {
+          throw new Error("Failed to upload the file");
+        }
 
-            for (let i = 0; i < lines.length; i++) {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let result;
+
+        let jsonBuffer = "";
+
+        while (!(result = await reader.read()).done) {
+          jsonBuffer += decoder.decode(result.value, { stream: true });
+          const lines = jsonBuffer.split("\n");
+          for (let i = 0; i < lines.length - 1; i++) {
+            const line = lines[i].trim();
+            if (line) {
               try {
-                const lineJSON = JSON.parse(lines[i]);
-                setStockDetails((prev) => {
-                  return [...prev, lineJSON];
-                });
-              } catch (err) {
-                console.error("Error parsing the line");
-                console.error(err);
+                const jsonObject = JSON.parse(line);
+                try {
+                  setStockDetails((prev) => [...prev, jsonObject]);
+                } catch (error) {
+                  console.error("Invalid JSON:", line);
+                }
+              } catch (e) {
+                console.error("Invalid JSON:", line);
               }
             }
-          } catch (err) {
-            console.error("Error parsing the response data");
-            console.error(err);
-            setError(
-              "There was some issue in the response. Please try again later",
-            );
           }
-        } else {
-          console.error("Got no response from the server");
-          setError(
-            "There was no response from the backend server. Please try again later",
-          );
+          jsonBuffer = lines[lines.length - 1];
         }
       } catch (err) {
         console.error("Error uploading the file");
         console.error(err);
         setError("The file could not be uploaded. Please try again later");
-      } finally {
-        setLoading(false);
       }
     }
   };
 
   return {
     loading,
-    uploadPercentage,
     stockDetails,
     error,
     handleUploadFile,

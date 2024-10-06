@@ -8,8 +8,7 @@ import StockCard from "../components/StockCard";
 
 const Homepage = () => {
   const [search, setSearch] = useState("");
-  const { loading, handleUploadFile, error, stockDetails, uploadPercentage } =
-    useUpload();
+  const { loading, handleUploadFile, error, stockDetails } = useUpload();
 
   if (stockDetails.length > 0) {
     return (
@@ -88,7 +87,7 @@ const Homepage = () => {
             className="px-3 mt-3 justify-center py-1 bg-primary text-white rounded-md flex gap-2 items-center"
             htmlFor="file-upload"
           >
-            {loading ? "" + uploadPercentage + "%" : "Upload"}
+            {loading ? "Uploading ..." + "%" : "Upload"}
             <CloudArrowUpIcon width={24} height={24} />
           </label>
           <input
