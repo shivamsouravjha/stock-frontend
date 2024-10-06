@@ -21,7 +21,6 @@ function App() {
   }, []);
 
   const navigateToHome = () => {
-    Analytics.track('navigate-home');
     ReactGA.event({
       category: 'Navigation',
       action: 'Navigate to Home',
@@ -34,11 +33,9 @@ function App() {
       category: 'Navigation',
       action: 'Navigate to Agreement',
     });
-    Analytics.track('navigate-agreement');
     navigate('/agreement');
   };
-  console.log("clientId", clientId);
-  console.log("redirectUri", redirectUri);
+
 return (
     <GoogleOAuthProvider clientId={clientId} redirectUri={redirectUri}>
 
