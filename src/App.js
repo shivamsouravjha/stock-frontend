@@ -7,6 +7,7 @@ import React, { useEffect } from 'react';
 import ReactGA from 'react-ga4';
 import { GoogleOAuthProvider } from '@react-oauth/google'; // Import the provider
 import OAuthCallback from '../src/components/OAuthCallback.js'; // New callback component
+import PrivacyPolicy from "../src/components/sla"
 
 Axios.defaults.baseURL = "https://stock-backend-hz83.onrender.com/";
 const TRACKING_ID = process.env.REACT_APP_GA_TRACKING_ID;
@@ -65,6 +66,7 @@ return (
           <Container maxWidth="container.xl">
             <Routes>
               <Route path="/" element={<Upload />} />
+              <Route path="/agreement" element={<PrivacyPolicy/>} />
               <Route path="/oauth-callback" element={<OAuthCallback />} /> {/* New OAuth callback route */}
             </Routes>
           </Container>
