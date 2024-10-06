@@ -1,5 +1,6 @@
 import { ArrowUpIcon } from "@heroicons/react/20/solid";
 import { StarIcon } from "@heroicons/react/24/solid";
+import PropTypes from "prop-types";
 
 const StockCard = ({ stockData }) => {
   return (
@@ -71,6 +72,10 @@ const StockCard = ({ stockData }) => {
       </div>
     </div>
   );
+};
+
+StockCard.propTypes = {
+  stockData: PropTypes.object,
 };
 
 export default StockCard;
