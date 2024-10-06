@@ -75,7 +75,13 @@ const Homepage = () => {
             </h2>
             <div className="text-xs">
               To download supported format.{" "}
-              <span className="text-primary font-semibold">Click here</span>
+              <a
+                download={true}
+                href="/sample.xlsx"
+                className="text-primary font-semibold"
+              >
+                Click here
+              </a>
             </div>
           </div>
           <label
