@@ -87,7 +87,7 @@ const Homepage = () => {
             className="px-3 mt-3 justify-center py-1 bg-primary text-white rounded-md flex gap-2 items-center"
             htmlFor="file-upload"
           >
-            {loading ? "Uploading ..." + "%" : "Upload"}
+            {loading ? "Uploading ..." : "Upload"}
             <CloudArrowUpIcon width={24} height={24} />
           </label>
           <input
