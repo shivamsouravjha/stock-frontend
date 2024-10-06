@@ -56,6 +56,9 @@ const StockCard = ({ stock }) => {
       <Text>
         <strong>Rating:</strong> {stock.stockRate}
       </Text>
+      <Text>
+        <strong>FScore:</strong> {stock.fScore}
+      </Text>
     </Box>
   );
 };
