@@ -30,6 +30,7 @@ const Homepage = () => {
             <select
               onChange={(e) => setShortBy(e.currentTarget.value)}
               className="bg-slate-200 p-2 rounded-md"
+              value={shortBy}
             >
               <option value={"none"}>Sort by</option>
               <option value={"rating"}>Rating</option>
@@ -39,7 +40,7 @@ const Homepage = () => {
             </select>
             <Button
               onClick={() => {
-                setShortBy("");
+                setShortBy("none");
                 setSearch("");
               }}
               title={"Reset"}
