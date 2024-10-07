@@ -1,5 +1,4 @@
-import { ArrowUpIcon } from "@heroicons/react/20/solid";
-import { StarIcon } from "@heroicons/react/24/solid";
+import { ArrowUp, StarIcon } from "lucide-react";
 import PropTypes from "prop-types";
 
 const StockCard = ({ stockData }) => {
@@ -18,7 +17,7 @@ const StockCard = ({ stockData }) => {
             className="flex items-center text-blue-600 hover:underline"
           >
             View Details
-            <ArrowUpIcon className="ml-1 h-4 w-4" />
+            <ArrowUp className="ml-1 h-4 w-4" />
           </a>
         </div>
         <div className="grid grid-cols-2 gap-4">
@@ -59,6 +58,10 @@ const StockCard = ({ stockData }) => {
               Quantity
             </p>
             <p className="text-lg font-semibold">{stockData.Quantity}</p>
+          </div>
+          <div>
+            <p className="text-sm font-medium text-muted-foreground">FScore</p>
+            <p className="text-lg font-semibold">{stockData.fScore}</p>
           </div>
           <div>
             <p className="text-sm font-medium text-muted-foreground">

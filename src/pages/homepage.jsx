@@ -1,29 +1,51 @@
 import Lottie from "lottie-react";
 import stockAnimationData from "../animation/stock.json";
-import { CloudArrowUpIcon } from "@heroicons/react/24/solid";
 import useUpload from "../hooks/useUpload";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import StockCard from "../components/StockCard";
+import { DeleteIcon, Grid, Search, UploadCloud } from "lucide-react";
+import Button from "../components/Button";
 
 const Homepage = () => {
   const [search, setSearch] = useState("");
   const { loading, handleUploadFile, error, stockDetails } = useUpload();
+  const [shortBy, setShortBy] = useState("");
 
   if (stockDetails.length > 0) {
     return (
       <div className="pt-20 container mx-auto flex flex-col h-screen p-2">
-        <div className="py-2 bg-white flex items-center px-2 mb-2">
-          <MagnifyingGlassIcon className="h-5 w-5 text-muted-foreground" />
-          <input
-            type="text"
-            className="px-2 outline-none"
-            placeholder="Search..."
-            value={search}
-            onChange={(ev) => setSearch(ev.target.value)}
-          />
+        <div className="py-2 rounded-md flex justify-between items-center px-3">
+          <div className="flex bg-white py-2 border-[0.5px] rounded-md items-center gap-2 px-2">
+            <Search className="h-5 w-5 text-muted-foreground" />
+            <input
+              type="text"
+              className="px-2 outline-none"
+              placeholder="Search..."
+              value={search}
+              onChange={(ev) => setSearch(ev.target.value)}
+            />
+          </div>
+          <div className="flex gap-3 items-center">
+            <select
+              onChange={(e) => setShortBy(e.currentTarget.value)}
+              className="bg-slate-200 p-2 rounded-md"
+            >
+              <option value={"none"}>Sort by</option>
+              <option value={"rating"}>Rating</option>
+              <option value={"market_cap"}>Market Value</option>
+              <option value={"quantity"}>Quantity</option>
+              <option value={"percentage_of_aum"}>Percentage of AUM</option>
+            </select>
+            <Button
+              title={"Reset filters"}
+              icon={<DeleteIcon width={24} height={24} />}
+            />
+            <div className="flex items-center">
+              <Button title={"Grid View"} icon={<Grid />} />
+            </div>
+          </div>
         </div>
-        <div className="gap-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex-grow overflow-auto">
+        <div className="gap-3 mt-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex-grow overflow-auto">
           {stockDetails
             .filter((item) => {
               if (!search) {
@@ -44,6 +66,19 @@ const Homepage = () => {
                 });
 
                 return isValid;
+              }
+            })
+            .sort((a, b) => {
+              if (shortBy === "rating") {
+                return a.stockRate - b.stockRate;
+              } else if (shortBy === "market_cap") {
+                return a["Market/Fair Value"] - b["Market/Fair Value"];
+              } else if (shortBy === "quantity") {
+                return a.Quantity - b.Quantity;
+              } else if (shortBy === "percentage_of_aum") {
+                return a["Percentage of AUM"] - b["Percentage of AUM"];
+              } else {
+                return 0;
               }
             })
             .map((stockData) => (
@@ -88,7 +123,7 @@ const Homepage = () => {
             htmlFor="file-upload"
           >
             {loading ? "Uploading ..." : "Upload"}
-            <CloudArrowUpIcon width={24} height={24} />
+            <UploadCloud width={24} height={24} />
           </label>
           <input
             onChange={(ev) => handleUploadFile(ev.currentTarget.files)}
