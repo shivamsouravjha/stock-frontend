@@ -3,8 +3,9 @@ import stockAnimationData from "../animation/stock.json";
 import useUpload from "../hooks/useUpload";
 import { useState } from "react";
 import StockCard from "../components/StockCard";
-import { DeleteIcon, Grid, Search, UploadCloud } from "lucide-react";
+import { DeleteIcon, Search, UploadCloud } from "lucide-react";
 import Button from "../components/Button";
+import { toNumber } from "../utils/common";
 
 const Homepage = () => {
   const [search, setSearch] = useState("");
@@ -37,12 +38,13 @@ const Homepage = () => {
               <option value={"percentage_of_aum"}>Percentage of AUM</option>
             </select>
             <Button
-              title={"Reset filters"}
+              onClick={() => {
+                setShortBy("");
+                setSearch("");
+              }}
+              title={"Reset"}
               icon={<DeleteIcon width={24} height={24} />}
             />
-            <div className="flex items-center">
-              <Button title={"Grid View"} icon={<Grid />} />
-            </div>
           </div>
         </div>
         <div className="gap-3 mt-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex-grow overflow-auto">
@@ -70,13 +72,19 @@ const Homepage = () => {
             })
             .sort((a, b) => {
               if (shortBy === "rating") {
-                return a.stockRate - b.stockRate;
+                return toNumber(a.stockRate) - toNumber(b.stockRate);
               } else if (shortBy === "market_cap") {
-                return a["Market/Fair Value"] - b["Market/Fair Value"];
+                return (
+                  toNumber(a["Market/Fair Value"]) -
+                  toNumber(b["Market/Fair Value"])
+                );
               } else if (shortBy === "quantity") {
-                return a.Quantity - b.Quantity;
+                return toNumber(a.Quantity) - toNumber(b.Quantity);
               } else if (shortBy === "percentage_of_aum") {
-                return a["Percentage of AUM"] - b["Percentage of AUM"];
+                return (
+                  toNumber(a["Percentage of AUM"]) -
+                  toNumber(b["Percentage of AUM"])
+                );
               } else {
                 return 0;
               }
