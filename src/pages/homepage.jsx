@@ -15,18 +15,18 @@ const Homepage = () => {
   if (stockDetails.length > 0) {
     return (
       <div className="pt-20 container mx-auto flex flex-col h-screen p-2">
-        <div className="py-2 rounded-md flex justify-between items-center px-3">
-          <div className="flex bg-white py-2 border-[0.5px] rounded-md items-center gap-2 px-2">
+        <div className="py-2 rounded-md flex-col gap-y-2 sm:gap-y-0 sm:flex-row flex justify-between items-center px-3">
+          <div className="flex bg-white w-full sm:w-fit py-2 border-[0.5px] rounded-md items-center gap-2 px-2">
             <Search className="h-5 w-5 text-muted-foreground" />
             <input
               type="text"
-              className="px-2 outline-none"
+              className="px-2 outline-none w-full"
               placeholder="Search..."
               value={search}
               onChange={(ev) => setSearch(ev.target.value)}
             />
           </div>
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-3 w-full sm:w-fit  items-center justify-between sm:justify-normal ">
             <select
               onChange={(e) => setShortBy(e.currentTarget.value)}
               className="bg-slate-200 p-2 rounded-md"
