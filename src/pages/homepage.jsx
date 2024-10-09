@@ -2,16 +2,21 @@ import { useGoogleLogin } from '@react-oauth/google';
 import Lottie from "lottie-react";
 import stockAnimationData from "../animation/stock.json";
 import useUpload from "../hooks/useUpload";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StockCard from "../components/StockCard";
 import { DeleteIcon, Search, UploadCloud } from "lucide-react";
 import Button from "../components/Button";
 import { toNumber } from "../utils/common";
+import ReactGA from "react-ga";
 
 const Homepage = () => {
   const [search, setSearch] = useState("");
   const { loading, handleUploadFile, error, stockDetails, setStockDetails } = useUpload();
   const [shortBy, setShortBy] = useState("");
+
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: "/homepage" });
+  }, []);
 
   const googleLogin = useGoogleLogin({
     scope: "https://www.googleapis.com/auth/gmail.readonly",
@@ -48,6 +53,11 @@ const Homepage = () => {
             try {
               const stockDetail = JSON.parse(jsonString);
               setStockDetails((prevDetails) => [...prevDetails, stockDetail]);
+              ReactGA.event({
+                category: 'Stock',
+                action: 'Added stock detail',
+                label: stockDetail.ISIN,
+              });
             } catch (error) {
               console.error("Failed to parse stock data:", error, jsonString);
             }
