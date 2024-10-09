@@ -77,6 +77,8 @@ const useUpload = () => {
     stockDetails,
     error,
     handleUploadFile,
+    stockDetails,
+    setStockDetails,
   };
 };
 

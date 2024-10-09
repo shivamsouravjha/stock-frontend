@@ -1,35 +1,97 @@
+import { useGoogleLogin } from '@react-oauth/google';
 import Lottie from "lottie-react";
 import stockAnimationData from "../animation/stock.json";
 import useUpload from "../hooks/useUpload";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StockCard from "../components/StockCard";
 import { DeleteIcon, Search, UploadCloud } from "lucide-react";
 import Button from "../components/Button";
 import { toNumber } from "../utils/common";
+import ReactGA from "react-ga";
 
 const Homepage = () => {
   const [search, setSearch] = useState("");
-  const { loading, handleUploadFile, error, stockDetails } = useUpload();
+  const { loading, handleUploadFile, error, stockDetails, setStockDetails } = useUpload();
   const [shortBy, setShortBy] = useState("");
+
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: "/homepage" });
+  }, []);
+
+  const googleLogin = useGoogleLogin({
+    scope: "https://www.googleapis.com/auth/gmail.readonly",
+    onSuccess: async (tokenResponse) => {
+      const { access_token } = tokenResponse;
+
+      try {
+        const response = await fetch('https://stock-backend-hz83.onrender.com/api/fetchGmail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams({ token: access_token })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+
+        let done = false;
+        let accumulatedData = '';
+
+        while (!done) {
+          const { value, done: readerDone } = await reader.read();
+          done = readerDone;
+          accumulatedData += decoder.decode(value, { stream: true });
+
+          const jsonObjects = accumulatedData.split("\n").filter(Boolean);
+
+          jsonObjects.forEach((jsonString) => {
+            try {
+              const stockDetail = JSON.parse(jsonString);
+              setStockDetails((prevDetails) => [...prevDetails, stockDetail]);
+              ReactGA.event({
+                category: 'Stock',
+                action: 'Added stock detail',
+                label: stockDetail.ISIN,
+              });
+            } catch (error) {
+              console.error("Failed to parse stock data:", error, jsonString);
+            }
+          });
+
+          // Reset accumulatedData to handle partial JSON chunks
+          accumulatedData = '';
+        }
+      } catch (error) {
+        console.error("Error sending token to backend or reading stream:", error);
+      }
+    },
+    onError: () => console.log('Login Failed'),
+  });
 
   if (stockDetails.length > 0) {
     return (
       <div className="pt-20 container mx-auto flex flex-col h-screen p-2">
-        <div className="py-2 rounded-md flex justify-between items-center px-3">
-          <div className="flex bg-white py-2 border-[0.5px] rounded-md items-center gap-2 px-2">
+        <div className="py-2 rounded-md flex-col gap-y-2 sm:gap-y-0 sm:flex-row flex justify-between items-center px-3">
+          <div className="flex bg-white w-full sm:w-fit py-2 border-[0.5px] rounded-md items-center gap-2 px-2">
             <Search className="h-5 w-5 text-muted-foreground" />
             <input
               type="text"
-              className="px-2 outline-none"
+              className="px-2 outline-none w-full"
               placeholder="Search..."
               value={search}
               onChange={(ev) => setSearch(ev.target.value)}
             />
           </div>
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-3 w-full sm:w-fit  items-center justify-between sm:justify-normal ">
             <select
               onChange={(e) => setShortBy(e.currentTarget.value)}
               className="bg-slate-200 p-2 rounded-md"
+              value={shortBy}
             >
               <option value={"none"}>Sort by</option>
               <option value={"rating"}>Rating</option>
@@ -39,7 +101,7 @@ const Homepage = () => {
             </select>
             <Button
               onClick={() => {
-                setShortBy("");
+                setShortBy("none");
                 setSearch("");
               }}
               title={"Reset"}
@@ -126,20 +188,28 @@ const Homepage = () => {
               </a>
             </div>
           </div>
-          <label
-            className="px-3 mt-3 justify-center py-1 bg-primary text-white rounded-md flex gap-2 items-center"
-            htmlFor="file-upload"
-          >
-            {loading ? "Uploading ..." : "Upload"}
-            <UploadCloud width={24} height={24} />
-          </label>
-          <input
-            onChange={(ev) => handleUploadFile(ev.currentTarget.files)}
-            accept=".xlsx"
-            className="hidden"
-            id="file-upload"
-            type="file"
-          />
+          <div className="flex flex-col gap-3 items-center">
+            <label
+              className="px-3 mt-3 justify-center py-1 bg-primary text-white rounded-md flex gap-2 items-center cursor-pointer"
+              htmlFor="file-upload"
+            >
+              {loading ? "Uploading ..." : "Upload"}
+              <UploadCloud width={24} height={24} />
+            </label>
+            <input
+              onChange={(ev) => handleUploadFile(ev.currentTarget.files)}
+              accept=".xlsx"
+              className="hidden"
+              id="file-upload"
+              type="file"
+            />
+            <button
+              className="px-3 py-1 bg-red-500 text-white rounded-md flex gap-2 items-center cursor-pointer"
+              onClick={googleLogin}
+            >
+              Sign with Google
+            </button>
+          </div>
         </div>
       </div>
     </div>
