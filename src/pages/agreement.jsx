@@ -1,29 +1,32 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from "react";
+import { useState } from 'react'
 
 export default function PrivacyPolicy() {
-  const [activeSection, setActiveSection] = useState(null);
+  const [activeSection, setActiveSection] = useState(null)
 
   const sections = [
-    { id: "information-we-collect", title: "Information We Collect" },
-    { id: "how-we-use-your-information", title: "How We Use Your Information" },
+    { id: 'information-we-collect', title: 'Information We Collect' },
     {
-      id: "how-we-protect-your-information",
-      title: "How We Protect Your Information",
+      id: 'how-we-use-your-information',
+      title: 'How We Use Your Information',
     },
-    { id: "sharing-of-information", title: "Sharing of Information" },
-    { id: "your-data-choices", title: "Your Data Choices" },
-    { id: "data-retention", title: "Data Retention" },
     {
-      id: "changes-to-this-privacy-policy",
-      title: "Changes to This Privacy Policy",
+      id: 'how-we-protect-your-information',
+      title: 'How We Protect Your Information',
     },
-    { id: "contact-us", title: "Contact Us" },
-  ];
+    { id: 'sharing-of-information', title: 'Sharing of Information' },
+    { id: 'your-data-choices', title: 'Your Data Choices' },
+    { id: 'data-retention', title: 'Data Retention' },
+    {
+      id: 'changes-to-this-privacy-policy',
+      title: 'Changes to This Privacy Policy',
+    },
+    { id: 'contact-us', title: 'Contact Us' },
+  ]
 
   const toggleSection = (id) => {
-    setActiveSection(activeSection === id ? null : id);
-  };
+    setActiveSection(activeSection === id ? null : id)
+  }
 
   return (
     <div className="container mx-auto py-8 md:px-0 mt-28">
@@ -49,10 +52,10 @@ export default function PrivacyPolicy() {
                       href={`#${section.id}`}
                       className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
                       onClick={(e) => {
-                        e.preventDefault();
-                        document
-                          .getElementById(section.id)
-                          ?.scrollIntoView({ behavior: "smooth" });
+                        e.preventDefault()
+                        document.getElementById(section.id)?.scrollIntoView({
+                          behavior: 'smooth',
+                        })
                       }}
                     >
                       {section.title}
@@ -63,7 +66,7 @@ export default function PrivacyPolicy() {
             </nav>
             <div className="space-y-6">
               <p className="text-gray-600">
-                At <span className="font-semibold">Stock-Backend</span>{" "}
+                At <span className="font-semibold">Stock-Backend</span>{' '}
                 (referred to as "we&quot;, "our", or "us"), we value the privacy
                 of our users ("you", "your") and are committed to protecting
                 your personal information. This Privacy Policy explains how we
@@ -81,7 +84,7 @@ export default function PrivacyPolicy() {
                       {section.title}
                       <svg
                         className={`w-6 h-6 transform transition-transform duration-200 ${
-                          activeSection === section.id ? "rotate-180" : ""
+                          activeSection === section.id ? 'rotate-180' : ''
                         }`}
                         fill="none"
                         viewBox="0 0 24 24"
@@ -98,7 +101,7 @@ export default function PrivacyPolicy() {
                   </button>
                   {activeSection === section.id && (
                     <div className="mt-4 pl-4 text-gray-700">
-                      {section.id === "information-we-collect" && (
+                      {section.id === 'information-we-collect' && (
                         <>
                           <h3 className="font-semibold mb-2">
                             1.1 Google Account Information:
@@ -133,7 +136,7 @@ export default function PrivacyPolicy() {
                           </ul>
                         </>
                       )}
-                      {section.id === "how-we-use-your-information" && (
+                      {section.id === 'how-we-use-your-information' && (
                         <>
                           <p>
                             We use the information we collect from the Gmail API
@@ -143,7 +146,7 @@ export default function PrivacyPolicy() {
                             <li>
                               <span className="font-semibold">
                                 Email Processing:
-                              </span>{" "}
+                              </span>{' '}
                               We access your Gmail account to search for emails
                               containing portfolio disclosure files (e.g.,
                               `.xlsx` attachments). Once found, the app
@@ -152,7 +155,7 @@ export default function PrivacyPolicy() {
                             <li>
                               <span className="font-semibold">
                                 App Functionality:
-                              </span>{" "}
+                              </span>{' '}
                               Your Google email address is used for
                               authentication purposes and for associating the
                               email processing with your account.
@@ -160,14 +163,14 @@ export default function PrivacyPolicy() {
                             <li>
                               <span className="font-semibold">
                                 Data Processing:
-                              </span>{" "}
+                              </span>{' '}
                               The `.xlsx` files are processed to extract and
                               analyze portfolio data.
                             </li>
                           </ul>
                         </>
                       )}
-                      {section.id === "how-we-protect-your-information" && (
+                      {section.id === 'how-we-protect-your-information' && (
                         <>
                           <p>
                             We take data security seriously and have implemented
@@ -178,7 +181,7 @@ export default function PrivacyPolicy() {
                             <li>
                               <span className="font-semibold">
                                 Data Encryption:
-                              </span>{" "}
+                              </span>{' '}
                               Data transferred between our app and Google
                               servers via the Gmail API is encrypted using
                               industry-standard encryption protocols (such as
@@ -187,14 +190,14 @@ export default function PrivacyPolicy() {
                             <li>
                               <span className="font-semibold">
                                 Restricted Access:
-                              </span>{" "}
+                              </span>{' '}
                               Only authorized personnel have access to the
                               information you provide.
                             </li>
                           </ul>
                         </>
                       )}
-                      {section.id === "sharing-of-information" && (
+                      {section.id === 'sharing-of-information' && (
                         <>
                           <p>
                             We do not sell, trade, or otherwise transfer your
@@ -205,7 +208,7 @@ export default function PrivacyPolicy() {
                             <li>
                               <span className="font-semibold">
                                 Legal Compliance:
-                              </span>{" "}
+                              </span>{' '}
                               We may share information to comply with legal
                               obligations or in response to lawful requests from
                               public authorities.
@@ -213,7 +216,7 @@ export default function PrivacyPolicy() {
                             <li>
                               <span className="font-semibold">
                                 Service Providers:
-                              </span>{" "}
+                              </span>{' '}
                               We may share data with third-party service
                               providers who help us in operating our app, such
                               as cloud storage providers.
@@ -221,20 +224,20 @@ export default function PrivacyPolicy() {
                           </ul>
                         </>
                       )}
-                      {section.id === "your-data-choices" && (
+                      {section.id === 'your-data-choices' && (
                         <>
                           <p>
                             <span className="font-semibold">
                               Revoking Access:
-                            </span>{" "}
+                            </span>{' '}
                             You may revoke our access to your Google account at
-                            any time by visiting the{" "}
+                            any time by visiting the{' '}
                             <a
                               href="https://myaccount.google.com/permissions"
                               className="text-blue-600 hover:underline"
                             >
                               Google Security Settings
-                            </a>{" "}
+                            </a>{' '}
                             and removing our app's access.
                           </p>
                           <p className="mt-2">
@@ -246,7 +249,7 @@ export default function PrivacyPolicy() {
                           </p>
                         </>
                       )}
-                      {section.id === "data-retention" && (
+                      {section.id === 'data-retention' && (
                         <p>
                           We retain your information only for as long as is
                           necessary to fulfill the purposes outlined in this
@@ -254,7 +257,7 @@ export default function PrivacyPolicy() {
                           no longer needed, we securely delete or anonymize it.
                         </p>
                       )}
-                      {section.id === "changes-to-this-privacy-policy" && (
+                      {section.id === 'changes-to-this-privacy-policy' && (
                         <p>
                           We may update this privacy policy from time to time.
                           Any changes will be posted on this page with an
@@ -263,7 +266,7 @@ export default function PrivacyPolicy() {
                           are protecting your information.
                         </p>
                       )}
-                      {section.id === "contact-us" && (
+                      {section.id === 'contact-us' && (
                         <>
                           <p>
                             If you have any questions or concerns about this
@@ -340,5 +343,5 @@ export default function PrivacyPolicy() {
         </div>
       </div>
     </div>
-  );
+  )
 }

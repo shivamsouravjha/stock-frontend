@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
 const Button = ({ title, icon, ...props }) => {
   return (
@@ -8,12 +8,12 @@ const Button = ({ title, icon, ...props }) => {
     >
       {icon} {title}
     </button>
-  );
-};
+  )
+}
 
 Button.propTypes = {
   title: PropTypes.string,
   icon: PropTypes.element,
-};
+}
 
-export default Button;
+export default Button

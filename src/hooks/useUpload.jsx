@@ -1,5 +1,5 @@
 import { useState } from "react";
-import xlsx from 'node-xlsx';
+import * as xlsx from 'xlsx';
 
 const useUpload = () => {
   const [loading, setLoading] = useState(false);
@@ -9,7 +9,7 @@ const useUpload = () => {
   const [previewData, setPreviewData] = useState(null);
 
   const handleFileSelection = (files) => {
-    if (files.length > 0) {
+    if (files && files.length > 0) {
       setSelectedFile(files[0]);
       generatePreview(files[0]);
     }
@@ -20,12 +20,13 @@ const useUpload = () => {
     reader.onload = (e) => {
       try {
         const data = new Uint8Array(e.target.result);
-        const workbook = xlsx.parse(data);
-        
-        if (workbook && workbook.length > 0) {
-          const sheet = workbook[0];
-          const headers = sheet.data[0];
-          const rows = sheet.data.slice(1);
+        const workbook = xlsx.read(data, { type: 'array' });
+
+        if (workbook && workbook.SheetNames.length > 0) {
+          const sheet = workbook.Sheets[workbook.SheetNames[0]];
+          const jsonData = xlsx.utils.sheet_to_json(sheet, { header: 1 });
+          const headers = jsonData[0];
+          const rows = jsonData.slice(1);
           setPreviewData({ headers, rows });
         } else {
           setError("Unable to parse the file. Please ensure it's a valid XLSX file.");
@@ -44,31 +45,31 @@ const useUpload = () => {
       setLoading(true);
       try {
         const formData = new FormData();
-        formData.append("files", selectedFile);
+        formData.append('files', selectedFile);
 
         const response = await fetch(
-          "https://stock-backend-hz83.onrender.com/api/uploadXlsx",
+          'https://stock-backend-hz83.onrender.com/api/uploadXlsx',
           {
-            method: "POST",
+            method: 'POST',
             body: formData,
           }
         );
 
-        setLoading(false);
-
         if (!response.ok) {
-          throw new Error("Failed to upload the file");
+          throw new Error('Failed to upload the file');
         }
 
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
-        let result;
+        let jsonBuffer = '';
 
-        let jsonBuffer = "";
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
 
-        while (!(result = await reader.read()).done) {
-          jsonBuffer += decoder.decode(result.value, { stream: true });
-          const lines = jsonBuffer.split("\n");
+          jsonBuffer += decoder.decode(value, { stream: true });
+          const lines = jsonBuffer.split('\n');
+
           for (let i = 0; i < lines.length - 1; i++) {
             const line = lines[i].trim();
             if (line) {
@@ -76,15 +77,18 @@ const useUpload = () => {
                 const jsonObject = JSON.parse(line);
                 setStockDetails((prev) => [...prev, jsonObject]);
               } catch (e) {
-                console.error("Invalid JSON:", line);
+                console.error('Invalid JSON:', line);
               }
             }
           }
           jsonBuffer = lines[lines.length - 1];
         }
+
+        setLoading(false);
       } catch (err) {
-        console.error("Error uploading the file:", err);
-        setError("The file could not be uploaded. Please try again later");
+        console.error('Error uploading the file:', err);
+        setError('The file could not be uploaded. Please try again later');
+        setLoading(false);
       }
     }
   };

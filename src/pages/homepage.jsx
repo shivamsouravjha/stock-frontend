@@ -3,55 +3,57 @@ import { useGoogleLogin } from '@react-oauth/google';
 import Lottie from "lottie-react";
 import stockAnimationData from "../animation/stock.json";
 import useUpload from "../hooks/useUpload";
-import StockCard from "../components/StockCard";
 import { DeleteIcon, Search, UploadCloud, ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "../components/Button";
-import { toNumber } from "../utils/common";
 import ReactGA from "react-ga";
+import Result from '../components/Result';
 
 const ROWS_PER_PAGE = 25;
 
 const Homepage = () => {
   const [search, setSearch] = useState("");
-  const { 
-    loading, 
-    handleFileSelection, 
-    handleUploadFile, 
-    error, 
-    stockDetails, 
+  const {
+    loading,
+    handleFileSelection,
+    handleUploadFile,
+    error,
+    stockDetails,
     setStockDetails,
-    selectedFile, 
-    previewData 
+    selectedFile,
+    previewData
   } = useUpload();
   const [shortBy, setShortBy] = useState("");
-  const [showConfirmation, setShowConfirmation] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [isUploading, setIsUploading] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
-    ReactGA.send({ hitType: "pageview", page: "/homepage" });
+    ReactGA.send({ hitType: 'pageview', page: '/homepage' });
   }, []);
 
   const googleLogin = useGoogleLogin({
-    scope: "https://www.googleapis.com/auth/gmail.readonly",
+    scope: 'https://www.googleapis.com/auth/gmail.readonly',
     onSuccess: async (tokenResponse) => {
       const { access_token } = tokenResponse;
 
       try {
-        const response = await fetch('https://stock-backend-hz83.onrender.com/api/fetchGmail', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: new URLSearchParams({ token: access_token })
-        });
+        const response = await fetch(
+          'https://stock-backend-hz83.onrender.com/api/fetchGmail',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({ token: access_token }),
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const reader = response.body.getReader();
-        const decoder = new TextDecoder("utf-8");
+        const decoder = new TextDecoder('utf-8');
 
         let done = false;
         let accumulatedData = '';
@@ -61,7 +63,7 @@ const Homepage = () => {
           done = readerDone;
           accumulatedData += decoder.decode(value, { stream: true });
 
-          const jsonObjects = accumulatedData.split("\n").filter(Boolean);
+          const jsonObjects = accumulatedData.split('\n').filter(Boolean);
 
           jsonObjects.forEach((jsonString) => {
             try {
@@ -73,15 +75,17 @@ const Homepage = () => {
                 label: stockDetail.ISIN,
               });
             } catch (error) {
-              console.error("Failed to parse stock data:", error, jsonString);
+              console.error('Failed to parse stock data:', error, jsonString);
             }
           });
 
-          // Reset accumulatedData to handle partial JSON chunks
           accumulatedData = '';
         }
       } catch (error) {
-        console.error("Error sending token to backend or reading stream:", error);
+        console.error(
+          'Error sending token to backend or reading stream:',
+          error
+        );
       }
     },
     onError: () => console.log('Login Failed'),
@@ -104,7 +108,7 @@ const Homepage = () => {
     const currentRows = previewData.rows.slice(startIndex, endIndex);
 
     return (
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="bg-white shadow-lg rounded-lg overflow-hidden mt-8">
         <div className="p-4 bg-gray-100 border-b">
           <h2 className="text-lg font-semibold">File Preview: {selectedFile.name}</h2>
           <p className="text-sm text-gray-600">Page {currentPage} of {totalPages}</p>
@@ -134,7 +138,7 @@ const Homepage = () => {
           </table>
         </div>
         <div className="p-4 bg-gray-100 border-t flex justify-between items-center">
-          <button 
+          <button
             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
             className="p-2 bg-blue-500 text-white rounded-full disabled:bg-gray-300"
@@ -142,7 +146,7 @@ const Homepage = () => {
             <ChevronLeft size={16} />
           </button>
           <span className="text-sm">Page {currentPage} of {totalPages}</span>
-          <button 
+          <button
             onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
             disabled={currentPage === totalPages}
             className="p-2 bg-blue-500 text-white rounded-full disabled:bg-gray-300"
@@ -156,87 +160,13 @@ const Homepage = () => {
 
   if (stockDetails.length > 0) {
     return (
-      <div className="pt-20 container mx-auto flex flex-col h-screen p-2">
-        <div className="py-2 rounded-md flex-col gap-y-2 sm:gap-y-0 sm:flex-row flex justify-between items-center px-3">
-          <div className="flex bg-white w-full sm:w-fit py-2 border-[0.5px] rounded-md items-center gap-2 px-2">
-            <Search className="h-5 w-5 text-muted-foreground" />
-            <input
-              type="text"
-              className="px-2 outline-none w-full"
-              placeholder="Search..."
-              value={search}
-              onChange={(ev) => setSearch(ev.target.value)}
-            />
-          </div>
-          <div className="flex gap-3 w-full sm:w-fit items-center justify-between sm:justify-normal">
-            <select
-              onChange={(e) => setShortBy(e.currentTarget.value)}
-              className="bg-slate-200 p-2 rounded-md"
-              value={shortBy}
-            >
-              <option value={"none"}>Sort by</option>
-              <option value={"rating"}>Rating</option>
-              <option value={"market_cap"}>Market Value</option>
-              <option value={"quantity"}>Quantity</option>
-              <option value={"percentage_of_aum"}>Percentage of AUM</option>
-            </select>
-            <Button
-              onClick={() => {
-                setShortBy("none");
-                setSearch("");
-              }}
-              title={"Reset"}
-              icon={<DeleteIcon width={24} height={24} />}
-            />
-          </div>
-        </div>
-        <div className="gap-3 mt-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex-grow overflow-auto">
-          {stockDetails
-            .filter((item) => {
-              if (!search) {
-                return true;
-              } else {
-                let isValid = false;
-
-                Object.values(item).forEach((value) => {
-                  if (
-                    value &&
-                    value
-                      .toString()
-                      .toLowerCase()
-                      .includes(search.toLowerCase())
-                  ) {
-                    isValid = true;
-                  }
-                });
-
-                return isValid;
-              }
-            })
-            .sort((a, b) => {
-              if (shortBy === "rating") {
-                return toNumber(a.stockRate) - toNumber(b.stockRate);
-              } else if (shortBy === "market_cap") {
-                return (
-                  toNumber(a["Market/Fair Value"]) -
-                  toNumber(b["Market/Fair Value"])
-                );
-              } else if (shortBy === "quantity") {
-                return toNumber(a.Quantity) - toNumber(b.Quantity);
-              } else if (shortBy === "percentage_of_aum") {
-                return (
-                  toNumber(a["Percentage of AUM"]) -
-                  toNumber(b["Percentage of AUM"])
-                );
-              } else {
-                return 0;
-              }
-            })
-            .map((stockData) => (
-              <StockCard key={stockData.ISIN} stockData={stockData} />
-            ))}
-        </div>
-      </div>
+      <Result
+        search={search}
+        setSearch={setSearch}
+        shortBy={shortBy}
+        setShortBy={setShortBy}
+        stockDetails={stockDetails}
+      />
     );
   }
 
@@ -244,34 +174,36 @@ const Homepage = () => {
     <div className="w-full min-h-screen p-6 bg-gray-100">
       <div className="max-w-4xl mx-auto">
         <div className="mb-[80px] text-center"></div>
-        
+
         {error && (
           <div className="bg-red-100 text-red-500 p-4 rounded-md mb-6 text-sm">
             {error}
           </div>
         )}
-        
+
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
           <div className="w-[300px] h-[300px] mx-auto">
             <Lottie animationData={stockAnimationData} />
           </div>
-          <div className="flex flex-col sm:flex-row items-center justify-between">
-            <div className="mb-4 sm:mb-0">
-              <h2 className="text-xl font-semibold mb-2">Upload your Stock XLSX file to get started</h2>
-              <p className="text-sm text-gray-600">
-                To download a supported format, {" "}
-                <a href="/sample.xlsx" download className="text-blue-700 font-semibold hover:underline">
-                  Click here
-                </a>
-              </p>
+          <div className="flex justify-around ">
+            <div className="flex flex-col sm:flex-row items-center justify-between">
+              <div className="mb-4 sm:mb-0">
+                <h2 className="text-xl font-semibold mb-2">Upload your Stock XLSX file to get started</h2>
+                <p className="text-sm text-gray-600">
+                  To download a supported format, {" "}
+                  <a href="/sample.xlsx" download className="text-blue-700 font-semibold hover:underline">
+                    Click here
+                  </a>
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col gap-3 items-center">
               <label
-                className="px-4 py-2 bg-blue-700 text-white rounded-md flex items-center gap-2 cursor-pointer hover:bg-blue-600 transition"
+                className="px-3 mt-3 justify-center py-1 bg-primary text-white rounded-md flex gap-2 items-center cursor-pointer"
                 htmlFor="file-upload"
               >
-                {loading ? "Uploading..." : "Select File"}
-                <UploadCloud size={20} />
+                {loading ? "Uploading ..." : "Upload"}
+                <UploadCloud width={24} height={24} />
               </label>
               <input
                 onChange={(ev) => handleFileSelection(ev.currentTarget.files)}
@@ -281,7 +213,7 @@ const Homepage = () => {
                 type="file"
               />
               <button
-                className="px-4 py-2 bg-red-500 text-white rounded-md flex items-center gap-2 cursor-pointer hover:bg-red-600 transition"
+                className="px-3 py-1 bg-red-500 text-white rounded-md flex gap-2 items-center cursor-pointer"
                 onClick={googleLogin}
               >
                 Sign with Google
@@ -289,43 +221,41 @@ const Homepage = () => {
             </div>
           </div>
         </div>
-        
+
+        {renderPDFPreview()}
+
         {selectedFile && (
-        <div className="mb-8">
-          {renderPDFPreview()}
-          <button
-            onClick={() => setShowConfirmation(true)}
-            className="mt-4 px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
-          >
-            {isUploading ? "Uploading..." : "Upload File"}
-          </button>
-        </div>
-      )}
-      
+          <div className="mt-4 flex justify-center">
+            <Button
+            className="px-3 mt-3 justify-center py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex gap-2 items-center cursor-pointer"
+              onClick={() => setShowConfirmation(true)}
+              title="Upload File"
+            />
+          </div>
+        )}
+      </div>
+
       {showConfirmation && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg">
-            <h3 className="font-bold text-lg mb-4">Confirm Upload</h3>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-lg font-semibold mb-4">Confirm Upload</h3>
             <p>Are you sure you want to upload this file?</p>
-            <div className="mt-6 flex justify-end gap-4">
-              <button
+            <div className="mt-4 flex justify-end space-x-2">
+              <Button
                 onClick={() => setShowConfirmation(false)}
-                className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition"
-              >
-                Cancel
-              </button>
-              <button
+                title="Cancel"
+                className="bg-gray-300 text-black px-3 py-1 rounded-md cursor-pointer"
+              />
+              <Button
                 onClick={handleConfirmUpload}
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md cursor-pointer"
+                title={isUploading ? "Uploading..." : "Confirm"}
                 disabled={isUploading}
-              >
-                {isUploading ? "Uploading..." : "Confirm"}
-              </button>
+              />
             </div>
           </div>
         </div>
       )}
-      </div>
     </div>
   );
 };
