@@ -1,5 +1,5 @@
-import { ArrowUp, StarIcon } from "lucide-react";
-import PropTypes from "prop-types";
+import { ArrowUp, StarIcon } from 'lucide-react'
+import PropTypes from 'prop-types'
 
 const StockCard = ({ stockData }) => {
   return (
@@ -24,7 +24,7 @@ const StockCard = ({ stockData }) => {
           <div>
             <p className="text-sm font-medium text-muted-foreground">Name</p>
             <p className="text-lg font-semibold">
-              {stockData["Name of the Instrument"]}
+              {stockData['Name of the Instrument']}
             </p>
           </div>
           <div>
@@ -32,7 +32,7 @@ const StockCard = ({ stockData }) => {
               Industry
             </p>
             <p className="text-lg font-semibold">
-              {stockData["Industry/Rating"]}
+              {stockData['Industry/Rating']}
             </p>
           </div>
           <div>
@@ -44,7 +44,7 @@ const StockCard = ({ stockData }) => {
               Market Value
             </p>
             <p className="text-lg font-semibold">
-              ₹{stockData["Market/Fair Value"]}
+              ₹{stockData['Market/Fair Value']}
             </p>
           </div>
           <div>
@@ -68,17 +68,17 @@ const StockCard = ({ stockData }) => {
               Percentage of AUM
             </p>
             <p className="text-lg font-semibold">
-              {stockData["Percentage of AUM"]}
+              {stockData['Percentage of AUM']}
             </p>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 StockCard.propTypes = {
   stockData: PropTypes.object,
-};
+}
 
-export default StockCard;
+export default StockCard
