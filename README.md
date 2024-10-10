@@ -71,7 +71,7 @@ const {
   loading,
   handleChangeFiles,
   handleUploadFiles,
-} = useUpload();
+} = useUpload()
 ```
 
 ## Contribution
