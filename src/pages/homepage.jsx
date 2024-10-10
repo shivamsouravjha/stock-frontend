@@ -3,10 +3,11 @@ import { useGoogleLogin } from '@react-oauth/google';
 import Lottie from "lottie-react";
 import stockAnimationData from "../animation/stock.json";
 import useUpload from "../hooks/useUpload";
-import { DeleteIcon, Search, UploadCloud, ChevronLeft, ChevronRight } from "lucide-react";
+import { UploadCloud, ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "../components/Button";
 import ReactGA from "react-ga";
 import Result from '../components/Result';
+import * as xlsx from 'xlsx';
 
 const ROWS_PER_PAGE = 25;
 
@@ -20,12 +21,16 @@ const Homepage = () => {
     stockDetails,
     setStockDetails,
     selectedFile,
-    previewData
+    previewData,
+    setPreviewData
   } = useUpload();
   const [shortBy, setShortBy] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [isUploading, setIsUploading] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showSamplePreview, setShowSamplePreview] = useState(false);
+  const [samplePreviewData, setSamplePreviewData] = useState(null);
+  const [showFilePreview, setShowFilePreview] = useState(false);
 
   useEffect(() => {
     ReactGA.send({ hitType: 'pageview', page: '/homepage' });
@@ -96,28 +101,56 @@ const Homepage = () => {
     await handleUploadFile();
     setIsUploading(false);
     setShowConfirmation(false);
+    setShowFilePreview(false);
   };
 
-  const totalPages = previewData ? Math.ceil(previewData.rows.length / ROWS_PER_PAGE) : 0;
+  const handlePreviewClick = () => {
+    setShowConfirmation(false);
+    setShowFilePreview(true);
+  };
 
-  const renderPDFPreview = () => {
-    if (!previewData) return null;
+  const loadSampleFile = async () => {
+    try {
+      const response = await fetch('/sample.xlsx');
+      const arrayBuffer = await response.arrayBuffer();
+      const data = new Uint8Array(arrayBuffer);
+      const workbook = xlsx.read(data, { type: 'array' });
+
+      if (workbook && workbook.SheetNames.length > 0) {
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const jsonData = xlsx.utils.sheet_to_json(sheet, { header: 1 });
+        const headers = jsonData[0];
+        const rows = jsonData.slice(1);
+        setSamplePreviewData({ headers, rows });
+        setShowSamplePreview(true);
+      } else {
+        console.error("Unable to parse the sample file.");
+      }
+    } catch (error) {
+      console.error("Error loading sample file:", error);
+    }
+  };
+
+  const totalPages = (data) => data ? Math.ceil(data.rows.length / ROWS_PER_PAGE) : 0;
+
+  const renderFilePreview = (data, fileName) => {
+    if (!data) return null;
 
     const startIndex = (currentPage - 1) * ROWS_PER_PAGE;
     const endIndex = startIndex + ROWS_PER_PAGE;
-    const currentRows = previewData.rows.slice(startIndex, endIndex);
+    const currentRows = data.rows.slice(startIndex, endIndex);
 
     return (
       <div className="bg-white shadow-lg rounded-lg overflow-hidden mt-8">
         <div className="p-4 bg-gray-100 border-b">
-          <h2 className="text-lg font-semibold">File Preview: {selectedFile.name}</h2>
-          <p className="text-sm text-gray-600">Page {currentPage} of {totalPages}</p>
+          <h2 className="text-lg font-semibold">File Preview: {fileName}</h2>
+          <p className="text-sm text-gray-600">Page {currentPage} of {totalPages(data)}</p>
         </div>
         <div className="p-4 overflow-x-auto">
           <table className="w-full border-collapse border border-gray-300">
             <thead>
               <tr className="bg-gray-200">
-                {previewData.headers.map((header, index) => (
+                {data.headers.map((header, index) => (
                   <th key={index} className="p-2 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap border border-gray-300">
                     {header}
                   </th>
@@ -145,10 +178,10 @@ const Homepage = () => {
           >
             <ChevronLeft size={16} />
           </button>
-          <span className="text-sm">Page {currentPage} of {totalPages}</span>
+          <span className="text-sm">Page {currentPage} of {totalPages(data)}</span>
           <button
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages(data)))}
+            disabled={currentPage === totalPages(data)}
             className="p-2 bg-blue-500 text-white rounded-full disabled:bg-gray-300"
           >
             <ChevronRight size={16} />
@@ -190,10 +223,13 @@ const Homepage = () => {
               <div className="mb-4 sm:mb-0">
                 <h2 className="text-xl font-semibold mb-2">Upload your Stock XLSX file to get started</h2>
                 <p className="text-sm text-gray-600">
-                  To download a supported format, {" "}
-                  <a href="/sample.xlsx" download className="text-blue-700 font-semibold hover:underline">
+                  To view a supported format, {" "}
+                  <button
+                    onClick={loadSampleFile}
+                    className="text-blue-700 font-semibold hover:underline"
+                  >
                     Click here
-                  </a>
+                  </button>
                 </p>
               </div>
             </div>
@@ -206,7 +242,10 @@ const Homepage = () => {
                 <UploadCloud width={24} height={24} />
               </label>
               <input
-                onChange={(ev) => handleFileSelection(ev.currentTarget.files)}
+                onChange={(ev) => {
+                  handleFileSelection(ev.currentTarget.files);
+                  setShowConfirmation(true);
+                }}
                 accept=".xlsx"
                 className="hidden"
                 id="file-upload"
@@ -222,40 +261,60 @@ const Homepage = () => {
           </div>
         </div>
 
-        {renderPDFPreview()}
+        {showFilePreview && renderFilePreview(previewData, selectedFile.name)}
+        {showSamplePreview && renderFilePreview(samplePreviewData, 'sample.xlsx')}
 
-        {selectedFile && (
+        {showFilePreview && (
           <div className="mt-4 flex justify-center">
             <Button
-            className="px-3 mt-3 justify-center py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex gap-2 items-center cursor-pointer"
-              onClick={() => setShowConfirmation(true)}
-              title="Upload File"
+              className="px-3 mt-3 justify-center py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex gap-2 items-center cursor-pointer"
+              onClick={handleConfirmUpload}
+              title={isUploading ? "Uploading..." : "Upload File"}
+              disabled={isUploading}
+            >
+              {isUploading ? "Uploading..." : "Upload File"}
+              {!isUploading && <UploadCloud width={20} height={20} className="ml-2" />}
+            </Button>
+          </div>
+        )}
+
+        {showConfirmation && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-lg font-semibold mb-4">Confirm Upload</h3>
+              <p>Do you want to preview the file or upload it directly?</p>
+              <div className="mt-4 flex justify-end space-x-2">
+                <Button
+                  onClick={handlePreviewClick}
+                  title="Preview"
+                  className="bg-gray-300 text-black px-3 py-1 rounded-md cursor-pointer"
+                >
+                  Preview
+                </Button>
+                <Button
+                  onClick={handleConfirmUpload}
+                  title={isUploading ? "Uploading..." : "Upload File"}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md cursor-pointer"
+                  disabled={isUploading}
+                >
+                  {isUploading ? "Uploading..." : "Upload"}
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {showSamplePreview && (
+          <div className="mt-4 flex justify-center">
+            <Button
+              className="px-3 mt-3 justify-center py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex gap-2 items-center cursor-pointer"
+              onClick={() => setShowSamplePreview(false)}
+              title="Close Sample Preview"
             />
           </div>
         )}
-      </div>
 
-      {showConfirmation && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-lg font-semibold mb-4">Confirm Upload</h3>
-            <p>Are you sure you want to upload this file?</p>
-            <div className="mt-4 flex justify-end space-x-2">
-              <Button
-                onClick={() => setShowConfirmation(false)}
-                title="Cancel"
-                className="bg-gray-300 text-black px-3 py-1 rounded-md cursor-pointer"
-              />
-              <Button
-                onClick={handleConfirmUpload}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md cursor-pointer"
-                title={isUploading ? "Uploading..." : "Confirm"}
-                disabled={isUploading}
-              />
-            </div>
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 };
