@@ -3,7 +3,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import Lottie from "lottie-react";
 import stockAnimationData from "../animation/stock.json";
 import useUpload from "../hooks/useUpload";
-import { UploadCloud, ChevronLeft, ChevronRight } from "lucide-react";
+import { UploadCloud, ChevronLeft, ChevronRight, X } from "lucide-react";
 import Button from "../components/Button";
 import ReactGA from "react-ga";
 import Result from '../components/Result';
@@ -98,10 +98,16 @@ const Homepage = () => {
 
   const handleConfirmUpload = async () => {
     setIsUploading(true);
-    await handleUploadFile();
-    setIsUploading(false);
-    setShowConfirmation(false);
-    setShowFilePreview(false);
+    setShowFilePreview(false); // Close the preview immediately
+    try {
+      await handleUploadFile();
+    } catch (error) {
+      console.error("Upload failed:", error);
+      // Optionally, you can set an error state here to display to the user
+    } finally {
+      setIsUploading(false);
+      setShowConfirmation(false);
+    }
   };
 
   const handlePreviewClick = () => {
@@ -133,7 +139,7 @@ const Homepage = () => {
 
   const totalPages = (data) => data ? Math.ceil(data.rows.length / ROWS_PER_PAGE) : 0;
 
-  const renderFilePreview = (data, fileName) => {
+  const renderFilePreview = (data, fileName, isFilePreview = true) => {
     if (!data) return null;
 
     const startIndex = (currentPage - 1) * ROWS_PER_PAGE;
@@ -142,9 +148,32 @@ const Homepage = () => {
 
     return (
       <div className="bg-white shadow-lg rounded-lg overflow-hidden mt-8">
-        <div className="p-4 bg-gray-100 border-b">
-          <h2 className="text-lg font-semibold">File Preview: {fileName}</h2>
-          <p className="text-sm text-gray-600">Page {currentPage} of {totalPages(data)}</p>
+        <div className="p-4 bg-gray-100 border-b flex justify-between items-center">
+          <div>
+            <h2 className="text-lg font-semibold">File Preview: {fileName}</h2>
+            <p className="text-sm text-gray-600">Page {currentPage} of {totalPages(data)}</p>
+          </div>
+          <div className="flex space-x-2">
+            {isFilePreview && (
+              <Button
+                onClick={handleConfirmUpload}
+                title={isUploading ? "Uploading..." : "Upload File"}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md cursor-pointer flex items-center"
+                disabled={isUploading}
+              >
+                {isUploading ? "Uploading..." : "Upload File"}
+                {!isUploading && <UploadCloud className="ml-2" size={16} />}
+              </Button>
+            )}
+            <Button
+              onClick={() => isFilePreview ? setShowFilePreview(false) : setShowSamplePreview(false)}
+              title="Close Preview"
+              className="bg-gray-300 hover:bg-gray-400 text-black px-3 py-1 rounded-md cursor-pointer flex items-center"
+            >
+              Close Preview
+              <X className="ml-2" size={16} />
+            </Button>
+          </div>
         </div>
         <div className="p-4 overflow-x-auto">
           <table className="w-full border-collapse border border-gray-300">
@@ -207,13 +236,13 @@ const Homepage = () => {
     <div className="w-full min-h-screen p-6 bg-gray-100">
       <div className="max-w-4xl mx-auto">
         <div className="mb-[80px] text-center"></div>
-
+  
         {error && (
           <div className="bg-red-100 text-red-500 p-4 rounded-md mb-6 text-sm">
             {error}
           </div>
         )}
-
+  
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
           <div className="w-[300px] h-[300px] mx-auto">
             <Lottie animationData={stockAnimationData} />
@@ -260,24 +289,10 @@ const Homepage = () => {
             </div>
           </div>
         </div>
-
+  
         {showFilePreview && renderFilePreview(previewData, selectedFile.name)}
-        {showSamplePreview && renderFilePreview(samplePreviewData, 'sample.xlsx')}
-
-        {showFilePreview && (
-          <div className="mt-4 flex justify-center">
-            <Button
-              className="px-3 mt-3 justify-center py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex gap-2 items-center cursor-pointer"
-              onClick={handleConfirmUpload}
-              title={isUploading ? "Uploading..." : "Upload File"}
-              disabled={isUploading}
-            >
-              {isUploading ? "Uploading..." : "Upload File"}
-              {!isUploading && <UploadCloud width={20} height={20} className="ml-2" />}
-            </Button>
-          </div>
-        )}
-
+        {showSamplePreview && renderFilePreview(samplePreviewData, 'sample.xlsx', false)}
+  
         {showConfirmation && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -303,17 +318,6 @@ const Homepage = () => {
             </div>
           </div>
         )}
-
-        {showSamplePreview && (
-          <div className="mt-4 flex justify-center">
-            <Button
-              className="px-3 mt-3 justify-center py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex gap-2 items-center cursor-pointer"
-              onClick={() => setShowSamplePreview(false)}
-              title="Close Sample Preview"
-            />
-          </div>
-        )}
-
       </div>
     </div>
   );
