@@ -8,7 +8,7 @@ import { UploadCloud, ChevronLeft, ChevronRight, X } from "lucide-react";
 import Button from "../components/Button";
 import ReactGA from "react-ga";
 import Result from '../components/Result';
-import * as xlsx from 'xlsx
+import * as xlsx from 'xlsx'
 
 const ROWS_PER_PAGE = 25
 
