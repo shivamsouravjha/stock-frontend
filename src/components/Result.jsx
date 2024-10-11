@@ -31,7 +31,7 @@ const Result = ({
   return (
     <div className="pt-20 container mx-auto flex flex-col h-screen p-2">
       <div className="py-2 rounded-md flex-col gap-y-2 sm:gap-y-0 sm:flex-row flex justify-between items-center px-3">
-      <div className="flex items-center gap-5 w-full sm:w-fit">
+        <div className="flex items-center gap-5 w-full sm:w-fit">
           <div className="flex bg-white w-full sm:w-fit py-2 border-[0.5px] rounded-md items-center gap-2 px-2">
             <Search className="h-5 w-5 text-muted-foreground" />
             <input
@@ -178,7 +178,7 @@ const Result = ({
                 }
               })
               .map((stockData) => (
-                <TableRow>
+                <TableRow key={stockData.ISIN}>
                   <TableCell className="font-medium">
                     {stockData['Name of the Instrument']}
                   </TableCell>
@@ -223,6 +223,8 @@ Result.propTypes = {
   setSearch: PropsTypes.func,
   shortBy: PropsTypes.string,
   setShortBy: PropsTypes.func,
+  isGridView: PropsTypes.bool,
+  setIsGridView: PropsTypes.func,
 }
 
 export default Result

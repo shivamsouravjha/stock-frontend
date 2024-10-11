@@ -247,8 +247,8 @@ const Homepage = () => {
         setSearch={setSearch}
         shortBy={shortBy}
         setShortBy={setShortBy}
-        isGridView = {isGridView}
-        setIsGridView = {setIsGridView}
+        isGridView={isGridView}
+        setIsGridView={setIsGridView}
         stockDetails={stockDetails}
       />
     )
