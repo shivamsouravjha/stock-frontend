@@ -30,6 +30,7 @@ const Homepage = () => {
   const [showSamplePreview, setShowSamplePreview] = useState(false)
   const [samplePreviewData, setSamplePreviewData] = useState(null)
   const [showFilePreview, setShowFilePreview] = useState(false)
+  const [isGridView, setIsGridView] = useState(true)
 
   useEffect(() => {
     ReactGA.send({ hitType: 'pageview', page: '/homepage' })
@@ -246,6 +247,8 @@ const Homepage = () => {
         setSearch={setSearch}
         shortBy={shortBy}
         setShortBy={setShortBy}
+        isGridView = {isGridView}
+        setIsGridView = {setIsGridView}
         stockDetails={stockDetails}
       />
     )
