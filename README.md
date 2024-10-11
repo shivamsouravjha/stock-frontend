@@ -21,7 +21,7 @@ This project is a React-based frontend that allows users to upload `.xlsx` files
 
 ## Installation and Setup
 
-To get the project running locally, follow these steps:
+This project uses Yarn as the package manager. Please follow the instructions below to get the project running locally.
 
 1. **Clone the repository**:
 
@@ -33,13 +33,13 @@ To get the project running locally, follow these steps:
 2. **Install dependencies**:
 
    ```bash
-   npm install
+   yarn install
    ```
 
 3. **Run the development server**:
 
    ```bash
-   npm run dev
+   yarn dev
    ```
 
    The application will be available at `http://localhost:5173`.

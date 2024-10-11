@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useGoogleLogin } from '@react-oauth/google';
 import Lottie from "lottie-react";
 import stockAnimationData from "../animation/stock.json";
@@ -22,7 +22,6 @@ const Homepage = () => {
     setStockDetails,
     selectedFile,
     previewData,
-    setPreviewData
   } = useUpload();
   const [shortBy, setShortBy] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
