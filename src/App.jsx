@@ -3,6 +3,7 @@ import 'tailwindcss/tailwind.css'
 import Homepage from './pages/homepage'
 import AppWrapper from './components/AppWrapper'
 import Agreement from './pages/agreement'
+import Disclaimer from './pages/disclaimer'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import ReactGA from 'react-ga'
 import { useEffect } from 'react'
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         element: <Agreement />,
         path: '/agreement',
+      },
+      {
+        element: <Disclaimer />,
+        path: '/disclaimer',
       },
     ],
   },

@@ -78,10 +78,10 @@ const useUpload = () => {
             const line = lines[i].trim()
             if (line) {
               try {
-                const jsonObject = JSON.parse(line);
-                setStockDetails((prev) => [...prev, jsonObject]);
+                const jsonObject = JSON.parse(line)
+                setStockDetails((prev) => [...prev, jsonObject])
               } catch {
-                console.error('Invalid JSON:', line);
+                console.error('Invalid JSON:', line)
               }
             }
           }

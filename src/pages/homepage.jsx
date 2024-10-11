@@ -1,13 +1,12 @@
-
-import { useState, useEffect } from "react";
-import { useGoogleLogin } from '@react-oauth/google';
-import Lottie from "lottie-react";
-import stockAnimationData from "../animation/stock.json";
-import useUpload from "../hooks/useUpload";
-import { UploadCloud, ChevronLeft, ChevronRight, X } from "lucide-react";
-import Button from "../components/Button";
-import ReactGA from "react-ga";
-import Result from '../components/Result';
+import { useState, useEffect } from 'react'
+import { useGoogleLogin } from '@react-oauth/google'
+import Lottie from 'lottie-react'
+import stockAnimationData from '../animation/stock.json'
+import useUpload from '../hooks/useUpload'
+import { UploadCloud, ChevronLeft, ChevronRight, X } from 'lucide-react'
+import Button from '../components/Button'
+import ReactGA from 'react-ga'
+import Result from '../components/Result'
 import * as xlsx from 'xlsx'
 
 const ROWS_PER_PAGE = 25
@@ -23,14 +22,14 @@ const Homepage = () => {
     setStockDetails,
     selectedFile,
     previewData,
-  } = useUpload();
-  const [shortBy, setShortBy] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isUploading, setIsUploading] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [showSamplePreview, setShowSamplePreview] = useState(false);
-  const [samplePreviewData, setSamplePreviewData] = useState(null);
-  const [showFilePreview, setShowFilePreview] = useState(false);
+  } = useUpload()
+  const [shortBy, setShortBy] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [isUploading, setIsUploading] = useState(false)
+  const [showConfirmation, setShowConfirmation] = useState(false)
+  const [showSamplePreview, setShowSamplePreview] = useState(false)
+  const [samplePreviewData, setSamplePreviewData] = useState(null)
+  const [showFilePreview, setShowFilePreview] = useState(false)
 
   useEffect(() => {
     ReactGA.send({ hitType: 'pageview', page: '/homepage' })

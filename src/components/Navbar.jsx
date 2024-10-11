@@ -10,7 +10,7 @@ const Navbar = () => {
             <h1 className="font-bold">StockSight</h1>
           </div>
         </Link>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <NavLink
             to={'/'}
             className={({ isActive }) =>
@@ -30,6 +30,16 @@ const Navbar = () => {
             }
           >
             Agreement
+          </NavLink>
+          <NavLink
+            to={'/disclaimer'}
+            className={({ isActive }) =>
+              isActive
+                ? 'px-3 py-1 rounded-md text-sm bg-secondary text-white hover:opacity-75'
+                : 'px-3 py-1 hover:bg-slate-100 rounded-md text-sm'
+            }
+          >
+            Disclaimer
           </NavLink>
         </div>
       </div>
