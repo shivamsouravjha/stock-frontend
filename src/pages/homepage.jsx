@@ -80,6 +80,11 @@ const Homepage = () => {
                 )
                 return uniqueStocks
               })
+              ReactGA.event({
+                category: 'Stock',
+                action: 'Added stock detail',
+                label: stockDetail.ISIN,
+              })
             } catch (error) {
               console.error('Failed to parse stock data:', error, jsonString)
             }
