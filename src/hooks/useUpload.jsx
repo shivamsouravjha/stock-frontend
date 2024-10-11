@@ -76,7 +76,7 @@ const useUpload = () => {
               try {
                 const jsonObject = JSON.parse(line);
                 setStockDetails((prev) => [...prev, jsonObject]);
-              } catch (e) {
+              } catch {
                 console.error('Invalid JSON:', line);
               }
             }
