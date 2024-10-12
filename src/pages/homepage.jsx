@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { useGoogleLogin } from '@react-oauth/google';
-import Lottie from "lottie-react";
-import stockAnimationData from "../animation/stock.json";
-import useUpload from "../hooks/useUpload";
-import { UploadCloud, ChevronLeft, ChevronRight, X } from "lucide-react";
-import Button from "../components/Button";
-import ReactGA from "react-ga";
-import Result from '../components/Result';
+import { useState, useEffect } from 'react'
+import { useGoogleLogin } from '@react-oauth/google'
+import Lottie from 'lottie-react'
+import stockAnimationData from '../animation/stock.json'
+import useUpload from '../hooks/useUpload'
+import { UploadCloud, ChevronLeft, ChevronRight, X } from 'lucide-react'
+import Button from '../components/Button'
+import ReactGA from 'react-ga'
+import Result from '../components/Result'
 import * as xlsx from 'xlsx'
 
 const ROWS_PER_PAGE = 25
@@ -262,7 +262,7 @@ const Homepage = () => {
   }
 
   return (
-    <div className="w-full min-h-screen p-6 bg-gray-100">
+    <div className="w-full min-h-[50%] p-6 bg-gray-100">
       <div className="max-w-4xl mx-auto">
         <div className="mb-[80px] text-center"></div>
 
