@@ -6,6 +6,7 @@ import Agreement from './pages/agreement'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import ReactGA from 'react-ga'
 import { useEffect } from 'react'
+import StockInfoPage from './pages/stockInfopage'
 
 const TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID
 
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         element: <Agreement />,
         path: '/agreement',
+      },
+      {
+        element: <StockInfoPage />,
+        path: '/stocks',
       },
     ],
   },
