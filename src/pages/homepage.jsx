@@ -288,7 +288,7 @@ const Homepage = () => {
             </div>
             <div className="flex flex-col gap-3 items-center">
               <label
-                className="px-3 mt-3 justify-center py-1 bg-primary text-white rounded-md flex gap-2 items-center cursor-pointer"
+                className="px-3 mt-3 justify-center py-1 bg-primaryColor text-white rounded-md flex gap-2 items-center cursor-pointer"
                 htmlFor="file-upload"
               >
                 {loading ? 'Uploading ...' : 'Upload'}

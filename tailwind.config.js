@@ -6,16 +6,18 @@ export default {
   theme: {
     extend: {
       colors: {
+        primaryColor: '#2f36f7',
+        secondaryColor: '#252526',
+        primaryLight: '#caccfc',
+        secondaryLight: '#aaaaad',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
         },
-        primaryLight: '#caccfc',
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
-        secondaryLight: '#aaaaad',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
