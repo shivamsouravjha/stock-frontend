@@ -15,7 +15,7 @@ const Navbar = () => {
             to={'/'}
             className={({ isActive }) =>
               isActive
-                ? 'px-3 py-1 rounded-md text-sm bg-secondary text-white hover:opacity-75'
+                ? 'px-3 py-1 rounded-md text-sm bg-secondaryColor text-white hover:opacity-75'
                 : 'px-3 py-1 hover:bg-slate-100 rounded-md text-sm'
             }
           >
@@ -25,7 +25,7 @@ const Navbar = () => {
             to={'/agreement'}
             className={({ isActive }) =>
               isActive
-                ? 'px-3 py-1 rounded-md text-sm bg-secondary text-white hover:opacity-75'
+                ? 'px-3 py-1 rounded-md text-sm bg-secondaryColor text-white hover:opacity-75'
                 : 'px-3 py-1 hover:bg-slate-100 rounded-md text-sm'
             }
           >
