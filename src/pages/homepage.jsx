@@ -72,7 +72,14 @@ const Homepage = () => {
           jsonObjects.forEach((jsonString) => {
             try {
               const stockDetail = JSON.parse(jsonString)
-              setStockDetails((prevDetails) => [...prevDetails, stockDetail])
+              // add filter on ISIN to remove duplicate stock
+              setStockDetails((prevDetails) => {
+                const uniqueStocks = [...prevDetails, stockDetail].filter(
+                  (stock, index, self) =>
+                    index === self.findIndex((s) => s.ISIN === stock.ISIN)
+                )
+                return uniqueStocks
+              })
               ReactGA.event({
                 category: 'Stock',
                 action: 'Added stock detail',
