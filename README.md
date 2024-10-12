@@ -2,7 +2,7 @@
 
 This project is a React-based frontend that allows users to upload `.xlsx` files containing stock data, stream stock information from a backend API, and display detailed stock information using styled components.
 
-[Sample XLSX file here](https://github.com/shivamsouravjha/stock-frontend/blob/master/dsp-tax-saver-fund.xlsx)
+[Sample XLSX file here](https://github.com/shivamsouravjha/stock-frontend/blob/master/public/sample.xlsx)
 
 ## Features
 
