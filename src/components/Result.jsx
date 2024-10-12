@@ -122,7 +122,7 @@ const Result = ({
       ) : (
         <Table>
           <TableHeader className="sticky top-0 bg-slate-100 hover:bg-slate-100">
-            <TableRow >
+            <TableRow>
               <TableHead className="text-black">Name</TableHead>
               <TableHead className="text-black">Industry</TableHead>
               <TableHead className="text-black">ISIN</TableHead>
@@ -179,9 +179,7 @@ const Result = ({
               })
               .map((stockData) => (
                 <TableRow key={stockData.ISIN}>
-                  <TableCell>
-                    {stockData['Name of the Instrument']}
-                  </TableCell>
+                  <TableCell>{stockData['Name of the Instrument']}</TableCell>
                   <TableCell>{stockData['Industry/Rating']}</TableCell>
 
                   <TableCell>{stockData.ISIN}</TableCell>
