@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 flex justify-between items-start">
         <div className="flex flex-col items-start">
           <Link to={'/'}>
-            <div className="flex gap-3 items-center">
+            <div className="flex gap-3 items-center pb-4">
               <img src="/icon.png" alt="logo" width={44} height={44} />
               <h1 className="font-bold">StockSight</h1>
             </div>
@@ -16,7 +16,7 @@ const Footer = () => {
           ⓒ 2024 StockSight
         </span>
       </div>
-      <hr className="border-gray-300 w-[90%] mx-auto my-4" />
+      <hr className="border-gray-300 w-[87%] mx-auto my-4" />
       <div className="container mx-auto px-4 mt-4">
         <h3 className="text-xl font-bold mb-4">Disclaimer</h3>
         <p className="mb-4">

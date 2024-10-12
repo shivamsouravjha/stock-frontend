@@ -259,7 +259,7 @@ const Homepage = () => {
   }
 
   return (
-    <div className="w-full min-h-screen p-6 bg-gray-100">
+    <div className="w-full min-h-[50%] p-6 bg-gray-100">
       <div className="max-w-4xl mx-auto">
         <div className="mb-[80px] text-center"></div>
 
