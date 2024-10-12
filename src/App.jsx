@@ -37,8 +37,8 @@ function App() {
   }, [])
   return (
     <GoogleOAuthProvider
-      clientId='{import.meta.env.VITE_GOOGLE_CLIENT_ID}'
-      redirect='{import.meta.env.VITE_GOOGLE_REDIRECT_URL}'
+      clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
+      redirect={import.meta.env.VITE_GOOGLE_REDIRECT_URL}
     >
       <RouterProvider router={router} />
     </GoogleOAuthProvider>
