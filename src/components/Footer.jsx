@@ -16,6 +16,28 @@ const Footer = () => {
           ⓒ 2024 StockSight
         </span>
       </div>
+
+      <div className="container mx-auto px-4 flex justify-center md:justify-end">
+        <div className="flex flex-col md:flex-row items-center md:items-end space-y-4 md:space-x-4">
+          <Link
+            to="https://github.com/shivamsouravjha/stock-backend"
+            className="text-primaryColor hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Help us Build the Backend🛠️
+          </Link>
+          <Link
+            to="https://github.com/shivamsouravjha/stock-frontend"
+            className="text-primaryColor hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Revamp the UI📺
+          </Link>
+        </div>
+      </div>
+
       <hr className="border-gray-300 w-[87%] mx-auto my-4" />
       <div className="container mx-auto px-4 mt-4">
         <h3 className="text-xl font-bold mb-4">Disclaimer</h3>
