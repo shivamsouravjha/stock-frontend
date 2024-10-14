@@ -262,7 +262,7 @@ const Homepage = () => {
   }
 
   return (
-    <div className="w-full min-h-[50%] p-6 bg-gray-100">
+    <div className="w-full min-h-[50%] p-6" style={{ backgroundColor: 'rgba(15, 134, 115, 0.4)' }}>
       <div className="max-w-4xl mx-auto">
         <div className="mb-[80px] text-center"></div>
 
@@ -312,7 +312,7 @@ const Homepage = () => {
                 type="file"
               />
               <button
-                className="px-3 py-1 bg-red-500 text-white rounded-md flex gap-2 items-center cursor-pointer"
+                className="px-3 py-1 text-white rounded-md flex gap-2 items-center cursor-pointer" style={{ backgroundColor: '#0F8673' }}
                 onClick={googleLogin}
               >
                 Sign with Google
@@ -341,7 +341,7 @@ const Homepage = () => {
                 <Button
                   onClick={handleConfirmUpload}
                   title={isUploading ? 'Uploading...' : 'Upload File'}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md cursor-pointer"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md cursor-pointer" 
                   disabled={isUploading}
                 >
                   {isUploading ? 'Uploading...' : 'Upload'}
