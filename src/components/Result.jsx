@@ -79,6 +79,10 @@ const Result = ({ stockDetails, search, setSearch, shortBy, setShortBy }) => {
               return 0
             }
           })
+          // Filter stocks by unique ISIN
+          .filter((stock, index, self) => {
+            return index === self.findIndex((s) => s.ISIN === stock.ISIN)
+          })
           .map((stockData) => (
             <StockCard key={stockData.ISIN} stockData={stockData} />
           ))}
