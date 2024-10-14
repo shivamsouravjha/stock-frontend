@@ -21,6 +21,8 @@ This project is a React-based frontend that allows users to upload `.xlsx` files
 
 ## Installation and Setup
 
+### Installation
+
 This project uses Yarn as the package manager. Please follow the instructions below to get the project running locally.
 
 1. **Clone the repository**:
@@ -43,6 +45,32 @@ This project uses Yarn as the package manager. Please follow the instructions be
    ```
 
    The application will be available at `http://localhost:5173`.
+
+### Setting up environment variables
+
+The project uses some environment variables which need to be defined inside a **.env** file at the root directory. Follow the steps to configure the .env file
+
+1. Create a .env file in the root of your project directory.
+2. Add the following variables
+
+   ```bash
+   VITE_GOOGLE_CLIENT_ID=<your-google-client-id>
+   VITE_GOOGLE_REDIRECT_URL=<your-google-redirect-url>
+   ```
+
+   If you want to use the sign-in functionality in the local development server, follow the below steps to obtain a google client id for you. If you don't need the sign-in functionality, you can assign a random text to the `VITE_GOOGLE_CLIENT_ID` and `VITE_GOOGLE_REDIRECT_URL` environment variables, and all other functionalities will work properly without sign-in support.
+
+### Obtaining google client id
+
+1. Click [here](https://support.google.com/cloud/answer/6158849?hl=en) and follow the instructions to create a google client ID.
+   When setting up, enter the following values in the respective fields:
+
+   - **Authorized JavaScript Origins**: `http://localhost:5173`
+   - **Authorized Redirect URIs**: `http://localhost:5173`
+
+2. Finally, go to [Google cloud console](https://console.cloud.google.com/apis/library/gmail.googleapis.com) and enable the Gmail API. This enusres that your application can access Gmail functionalities as part of the OAuth 2.0 setup process.
+
+Now, set **VITE_GOOGLE_CLIENT_ID** to the obtained Client ID and **VITE_GOOGLE_REDIRECT_URL** to `http://localhost:5173`. Your local development server should now be configured correctly and functioning properly.
 
 ## File Structure
 
