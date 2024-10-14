@@ -155,8 +155,8 @@ const Homepage = () => {
     const currentRows = data.rows.slice(startIndex, endIndex)
 
     return (
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden mt-8">
-        <div className="p-4 bg-gray-100 border-b flex justify-between items-center">
+      <div className="bg-white dark:bg-black shadow-lg rounded-lg overflow-hidden mt-8">
+        <div className="p-4 bg-gray-100 dark:bg-slate-800 border-b flex justify-between items-center">
           <div>
             <h2 className="text-lg font-semibold">File Preview: {fileName}</h2>
             <p className="text-sm text-gray-600">
@@ -190,13 +190,13 @@ const Homepage = () => {
           </div>
         </div>
         <div className="p-4 overflow-x-auto">
-          <table className="w-full border-collapse border border-gray-300">
+          <table className="w-full border-collapse border border-gray-300 dark:border-gray-800">
             <thead>
-              <tr className="bg-gray-200">
+              <tr className="bg-gray-200 dark:bg-slate-800">
                 {data.headers.map((header, index) => (
                   <th
                     key={index}
-                    className="p-2 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap border border-gray-300"
+                    className="p-2 text-left text-xs font-semibold text-gray-600 dark:text-gray-200 uppercase tracking-wider whitespace-nowrap border border-gray-300 dark:slate-700"
                   >
                     {header}
                   </th>
@@ -207,12 +207,16 @@ const Homepage = () => {
               {currentRows.map((row, rowIndex) => (
                 <tr
                   key={rowIndex}
-                  className={rowIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
+                  className={
+                    rowIndex % 2 === 0
+                      ? 'bg-gray-50 dark:bg-slate-800'
+                      : 'bg-white dark:bg-black'
+                  }
                 >
                   {row.map((cell, cellIndex) => (
                     <td
                       key={cellIndex}
-                      className="p-2 text-sm whitespace-nowrap border border-gray-300"
+                      className="p-2 text-sm whitespace-nowrap border border-gray-300 dark:bg-slate-800"
                     >
                       {cell}
                     </td>
@@ -222,7 +226,7 @@ const Homepage = () => {
             </tbody>
           </table>
         </div>
-        <div className="p-4 bg-gray-100 border-t flex justify-between items-center">
+        <div className="p-4 bg-gray-100 dark:bg-slate-800 border-t flex justify-between items-center">
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
@@ -262,20 +266,17 @@ const Homepage = () => {
   }
 
   return (
-    <div
-      className="w-full min-h-[50%] p-6"
-      style={{ backgroundColor: 'rgba(15, 134, 115, 0.4)' }}
-    >
+    <div className="w-full min-h-[50%] p-6 bg-gray-100 dark:bg-slate-900">
       <div className="max-w-4xl mx-auto">
         <div className="mb-[80px] text-center"></div>
 
         {error && (
-          <div className="bg-red-100 text-red-500 p-4 rounded-md mb-6 text-sm">
+          <div className="bg-red-100 dark:bg-red-800 text-red-500 p-4 rounded-md mb-6 text-sm">
             {error}
           </div>
         )}
 
-        <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+        <div className="bg-white p-6 rounded-lg shadow-md mb-8 dark:bg-black">
           <div className="w-[300px] h-[300px] mx-auto">
             <Lottie animationData={stockAnimationData} />
           </div>
@@ -331,7 +332,7 @@ const Homepage = () => {
 
         {showConfirmation && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
+            <div className="bg-white p-6 rounded-lg shadow-lg dark:bg-slate-700">
               <h3 className="text-lg font-semibold mb-4">Confirm Upload</h3>
               <p>Do you want to preview the file or upload it directly?</p>
               <div className="mt-4 flex justify-end space-x-2">

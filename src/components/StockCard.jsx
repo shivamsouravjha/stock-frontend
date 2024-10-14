@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const StockCard = ({ stockData }) => {
   return (
-    <div className="bg-white p-4 rounded-md mb-4">
+    <div className="bg-white p-4 rounded-md mb-4 dark:bg-black">
       <div className="grid gap-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">

@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
+import { ModeToggle } from './ModeToggle'
 
 const Navbar = () => {
   const handleHomeClick = () => {
@@ -8,7 +9,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="w-full fixed top-0 left-0 right-0 z-50 bg-white">
+    <nav className="w-full fixed top-0 left-0 right-0 bg-white z-50 dark:bg-black">
       <div className="container mx-auto py-3 px-2 flex justify-between">
         <Link to={'/'} onClick={handleHomeClick}>
           <div className="flex gap-2 items-center">
@@ -38,6 +39,7 @@ const Navbar = () => {
           >
             Agreement
           </NavLink>
+          <ModeToggle />
         </div>
       </div>
     </nav>

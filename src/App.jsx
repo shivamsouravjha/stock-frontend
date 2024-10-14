@@ -6,6 +6,7 @@ import Agreement from './pages/agreement'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import ReactGA from 'react-ga'
 import { useEffect } from 'react'
+import { ThemeProvider } from './components/ThemeProvider'
 
 const TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID
 
@@ -36,12 +37,14 @@ function App() {
     }
   }, [])
   return (
-    <GoogleOAuthProvider
-      clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
-      redirect={import.meta.env.VITE_GOOGLE_REDIRECT_URL}
-    >
-      <RouterProvider router={router} />
-    </GoogleOAuthProvider>
+    <ThemeProvider>
+      <GoogleOAuthProvider
+        clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
+        redirect={import.meta.env.VITE_GOOGLE_REDIRECT_URL}
+      >
+        <RouterProvider router={router} />
+      </GoogleOAuthProvider>
+    </ThemeProvider>
   )
 }
 

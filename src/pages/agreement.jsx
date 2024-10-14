@@ -29,19 +29,21 @@ export default function PrivacyPolicy() {
   }
 
   return (
-    <div className="container mx-auto py-8 md:px-0 mt-28">
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="p-6 bg-gray-50 border-b border-gray-200">
-          <h1 className="text-3xl text-center text-gray-600">Privacy Policy</h1>
-          <p className="text-center text-gray-600 mt-2">
-            Effective Date: 6th October, 2024
+    <div className="container mx-auto py-8 md:px-0 mt-28 dark:bg-slate-800">
+      <div className="max-w-4xl mx-auto bg-white dark:bg-black shadow-lg rounded-lg overflow-hidden">
+        <div className="p-6 bg-gray-50 border-b dark:bg-black border-gray-200 dark:border-gray-800">
+          <h1 className="text-3xl dark:text-white font-bold text-center text-gray-800">
+            Privacy Policy
+          </h1>
+          <p className="text-center text-gray-600 mt-2 dark:text-gray-100">
+            Effective Date: 6th October 2024
           </p>
         </div>
         <div className="p-6">
           <div className="grid md:grid-cols-[300px_1fr] gap-1">
             <nav className="hidden md:block">
-              <h2 className="text-lg font-semibold mb-4 text-gray-700">
-                Table of content
+              <h2 className="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-100">
+                Table of Contents
               </h2>
               <ul className="space-y-2">
                 {sections.map((section) => (
@@ -75,10 +77,10 @@ export default function PrivacyPolicy() {
               {sections.map((section) => (
                 <div key={section.id} id={section.id}>
                   <button
-                    className="w-full text-left py-2 px-1 bg-gray-150 hover:bg-gray-100 transition-colors duration-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-100"
+                    className="w-full text-left py-2 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 transition-colors duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     onClick={() => toggleSection(section.id)}
                   >
-                    <h2 className="text-l text-black-800 flex items-center justify-between">
+                    <h2 className="text-xl font-semibold text-gray-800 flex items-center justify-between dark:text-white">
                       {section.title}
                       <svg
                         className={`w-6 h-6 transform transition-transform duration-200 ${
@@ -98,7 +100,7 @@ export default function PrivacyPolicy() {
                     </h2>
                   </button>
                   {activeSection === section.id && (
-                    <div className="mt-4 pl-4 text-gray-700">
+                    <div className="mt-4 pl-4 text-gray-700 dark:text-gray-300">
                       {section.id === 'information-we-collect' && (
                         <>
                           <h3 className="mb-2 text-sm font-semibold">
