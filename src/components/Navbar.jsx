@@ -5,9 +5,9 @@ const Navbar = () => {
     <nav className="w-full fixed top-0 left-0 right-0 z-50 bg-white">
       <div className="container mx-auto py-3 px-2 flex justify-between">
         <Link to={'/'}>
-          <div className="flex gap-3 items-center">
-            <img src="/icon.png" alt="logo" width={44} height={44} />
-            <h1 className="font-bold">StockSight</h1>
+          <div className="flex gap-2 items-center">
+            <img src="/icon.png" alt="logo" width={60} height={60} />
+            <h1 className="font-bold">STOCKSIGHT</h1>
           </div>
         </Link>
         <div className="flex items-center gap-3">

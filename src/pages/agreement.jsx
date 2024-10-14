@@ -5,21 +5,21 @@ export default function PrivacyPolicy() {
   const [activeSection, setActiveSection] = useState(null)
 
   const sections = [
-    { id: 'information-we-collect', title: 'Information We Collect' },
+    { id: 'information-we-collect', title: 'Information we collect' },
     {
       id: 'how-we-use-your-information',
-      title: 'How We Use Your Information',
+      title: 'How we use your information',
     },
     {
       id: 'how-we-protect-your-information',
-      title: 'How We Protect Your Information',
+      title: 'How we protect your information',
     },
-    { id: 'sharing-of-information', title: 'Sharing of Information' },
-    { id: 'your-data-choices', title: 'Your Data Choices' },
-    { id: 'data-retention', title: 'Data Retention' },
+    { id: 'sharing-of-information', title: 'Sharing of information' },
+    { id: 'your-data-choices', title: 'Your data choices' },
+    { id: 'data-retention', title: 'Data retention' },
     {
       id: 'changes-to-this-privacy-policy',
-      title: 'Changes to This Privacy Policy',
+      title: 'Changes to this privacy policy',
     },
     { id: 'contact-us', title: 'Contact Us' },
   ]
@@ -32,25 +32,23 @@ export default function PrivacyPolicy() {
     <div className="container mx-auto py-8 md:px-0 mt-28">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="p-6 bg-gray-50 border-b border-gray-200">
-          <h1 className="text-3xl font-bold text-center text-gray-800">
-            Privacy Policy
-          </h1>
+          <h1 className="text-3xl text-center text-gray-600">Privacy Policy</h1>
           <p className="text-center text-gray-600 mt-2">
-            Effective Date: 6th October 2024
+            Effective Date: 6th October, 2024
           </p>
         </div>
         <div className="p-6">
-          <div className="grid md:grid-cols-[250px_1fr] gap-6">
+          <div className="grid md:grid-cols-[300px_1fr] gap-1">
             <nav className="hidden md:block">
               <h2 className="text-lg font-semibold mb-4 text-gray-700">
-                Table of Contents
+                Table of content
               </h2>
               <ul className="space-y-2">
                 {sections.map((section) => (
                   <li key={section.id}>
                     <a
                       href={`#${section.id}`}
-                      className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                      className=" text-sm text-gray-600 hover:text-blue-800 transition-colors duration-200"
                       onClick={(e) => {
                         e.preventDefault()
                         document.getElementById(section.id)?.scrollIntoView({
@@ -64,12 +62,12 @@ export default function PrivacyPolicy() {
                 ))}
               </ul>
             </nav>
-            <div className="space-y-6">
-              <p className="text-gray-600">
-                At <span className="font-semibold">Stock-Backend</span>{' '}
-                (referred to as "we&quot;, "our", or "us"), we value the privacy
-                of our users ("you", "your") and are committed to protecting
-                your personal information. This Privacy Policy explains how we
+            <div className="space-y-5">
+              <p className="text-sm text-black-600">
+                At <span className="font-semibold">Stock Sight</span> (referred
+                to as "we&quot;, "our", or "us"), we value the privacy of our
+                users ("you", "your") and are committed to protecting your
+                personal information. This Privacy Policy explains how we
                 collect, use, store, and protect your data when you use our
                 services, specifically through our integration with Google's
                 OAuth 2.0 and Gmail API.
@@ -77,10 +75,10 @@ export default function PrivacyPolicy() {
               {sections.map((section) => (
                 <div key={section.id} id={section.id}>
                   <button
-                    className="w-full text-left py-2 px-4 bg-gray-100 hover:bg-gray-200 transition-colors duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full text-left py-2 px-1 bg-gray-150 hover:bg-gray-100 transition-colors duration-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-100"
                     onClick={() => toggleSection(section.id)}
                   >
-                    <h2 className="text-xl font-semibold text-gray-800 flex items-center justify-between">
+                    <h2 className="text-l text-black-800 flex items-center justify-between">
                       {section.title}
                       <svg
                         className={`w-6 h-6 transform transition-transform duration-200 ${
@@ -103,27 +101,27 @@ export default function PrivacyPolicy() {
                     <div className="mt-4 pl-4 text-gray-700">
                       {section.id === 'information-we-collect' && (
                         <>
-                          <h3 className="font-semibold mb-2">
+                          <h3 className="mb-2 text-sm font-semibold">
                             1.1 Google Account Information:
                           </h3>
-                          <p>
+                          <p className="text-sm">
                             When you sign in to our app using your Google
                             account, we collect basic profile information,
                             including:
                           </p>
-                          <ul className="list-disc pl-5 mt-2 space-y-1">
+                          <ul className="list-disc pl-5 mt-2 space-y-1 text-sm">
                             <li>Your Google email address</li>
                             <li>Your Google account name</li>
                           </ul>
-                          <h3 className="font-semibold mt-4 mb-2">
+                          <h3 className="mt-4 mb-2 text-sm font-semibold">
                             1.2 Gmail API Information:
                           </h3>
-                          <p>
+                          <p className="text-sm">
                             If you authorize our app to access your Gmail
                             account, we may collect and process the following
                             information:
                           </p>
-                          <ul className="list-disc pl-5 mt-2 space-y-1">
+                          <ul className="list-disc pl-5 mt-2 space-y-1 text-sm">
                             <li>
                               Emails containing portfolio disclosure files that
                               match specific search criteria.
@@ -138,11 +136,11 @@ export default function PrivacyPolicy() {
                       )}
                       {section.id === 'how-we-use-your-information' && (
                         <>
-                          <p>
+                          <p className="text-sm">
                             We use the information we collect from the Gmail API
                             in the following ways:
                           </p>
-                          <ul className="list-disc pl-5 mt-2 space-y-2">
+                          <ul className="list-disc pl-5 mt-2 space-y-2 text-sm">
                             <li>
                               <span className="font-semibold">
                                 Email Processing:
@@ -153,7 +151,7 @@ export default function PrivacyPolicy() {
                               downloads and processes these attachments.
                             </li>
                             <li>
-                              <span className="font-semibold">
+                              <span className="text-sm font-semibold">
                                 App Functionality:
                               </span>{' '}
                               Your Google email address is used for
@@ -161,7 +159,7 @@ export default function PrivacyPolicy() {
                               email processing with your account.
                             </li>
                             <li>
-                              <span className="font-semibold">
+                              <span className="text-sm font-semibold">
                                 Data Processing:
                               </span>{' '}
                               The `.xlsx` files are processed to extract and
@@ -172,14 +170,14 @@ export default function PrivacyPolicy() {
                       )}
                       {section.id === 'how-we-protect-your-information' && (
                         <>
-                          <p>
+                          <p className="text-sm">
                             We take data security seriously and have implemented
                             appropriate technical and organizational measures to
                             protect your personal information, including:
                           </p>
-                          <ul className="list-disc pl-5 mt-2 space-y-2">
+                          <ul className="list-disc pl-5 mt-2 space-y-2 text-sm">
                             <li>
-                              <span className="font-semibold">
+                              <span className="text-sm font-semibold">
                                 Data Encryption:
                               </span>{' '}
                               Data transferred between our app and Google
@@ -188,7 +186,7 @@ export default function PrivacyPolicy() {
                               SSL/TLS).
                             </li>
                             <li>
-                              <span className="font-semibold">
+                              <span className="text-sm font-semibold">
                                 Restricted Access:
                               </span>{' '}
                               Only authorized personnel have access to the
@@ -199,12 +197,12 @@ export default function PrivacyPolicy() {
                       )}
                       {section.id === 'sharing-of-information' && (
                         <>
-                          <p>
+                          <p className="text-sm">
                             We do not sell, trade, or otherwise transfer your
                             personal information to outside parties except in
                             the following circumstances:
                           </p>
-                          <ul className="list-disc pl-5 mt-2 space-y-2">
+                          <ul className="list-disc pl-5 mt-2 space-y-2 text-sm">
                             <li>
                               <span className="font-semibold">
                                 Legal Compliance:
@@ -226,8 +224,8 @@ export default function PrivacyPolicy() {
                       )}
                       {section.id === 'your-data-choices' && (
                         <>
-                          <p>
-                            <span className="font-semibold">
+                          <p className="text-sm">
+                            <span className="text-sm font-semibold">
                               Revoking Access:
                             </span>{' '}
                             You may revoke our access to your Google account at
@@ -240,7 +238,7 @@ export default function PrivacyPolicy() {
                             </a>{' '}
                             and removing our app's access.
                           </p>
-                          <p className="mt-2">
+                          <p className="text-sm mt-2">
                             <span className="font-semibold">Deletion:</span> You
                             may request the deletion of your data by contacting
                             us at [your contact email]. Upon your request, we
@@ -250,7 +248,7 @@ export default function PrivacyPolicy() {
                         </>
                       )}
                       {section.id === 'data-retention' && (
-                        <p>
+                        <p className="text-sm">
                           We retain your information only for as long as is
                           necessary to fulfill the purposes outlined in this
                           policy, or as required by law. Once the information is
@@ -258,7 +256,7 @@ export default function PrivacyPolicy() {
                         </p>
                       )}
                       {section.id === 'changes-to-this-privacy-policy' && (
-                        <p>
+                        <p className="text-sm">
                           We may update this privacy policy from time to time.
                           Any changes will be posted on this page with an
                           updated "Effective Date". We encourage you to review
@@ -268,12 +266,12 @@ export default function PrivacyPolicy() {
                       )}
                       {section.id === 'contact-us' && (
                         <>
-                          <p>
+                          <p className="text-sm">
                             If you have any questions or concerns about this
                             Privacy Policy or how we handle your information,
                             please contact us at:
                           </p>
-                          <div className="mt-4 space-y-2">
+                          <div className="mt-4 space-y-2 text-sm">
                             <div className="flex items-center">
                               <svg
                                 className="w-5 h-5 mr-2 text-gray-600"
