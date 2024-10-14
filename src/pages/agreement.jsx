@@ -32,9 +32,7 @@ export default function PrivacyPolicy() {
     <div className="container mx-auto py-8 md:px-0 mt-28">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="p-6 bg-gray-50 border-b border-gray-200">
-          <h1 className="text-3xl text-center text-gray-600">
-            Privacy Policy
-          </h1>
+          <h1 className="text-3xl text-center text-gray-600">Privacy Policy</h1>
           <p className="text-center text-gray-600 mt-2">
             Effective Date: 6th October, 2024
           </p>
@@ -66,10 +64,10 @@ export default function PrivacyPolicy() {
             </nav>
             <div className="space-y-5">
               <p className="text-sm text-black-600">
-                At <span className="font-semibold">Stock Sight</span>{' '}
-                (referred to as "we&quot;, "our", or "us"), we value the privacy
-                of our users ("you", "your") and are committed to protecting
-                your personal information. This Privacy Policy explains how we
+                At <span className="font-semibold">Stock Sight</span> (referred
+                to as "we&quot;, "our", or "us"), we value the privacy of our
+                users ("you", "your") and are committed to protecting your
+                personal information. This Privacy Policy explains how we
                 collect, use, store, and protect your data when you use our
                 services, specifically through our integration with Google's
                 OAuth 2.0 and Gmail API.
@@ -118,7 +116,7 @@ export default function PrivacyPolicy() {
                           <h3 className="mt-4 mb-2 text-sm font-semibold">
                             1.2 Gmail API Information:
                           </h3>
-                          <p className="text-sm"> 
+                          <p className="text-sm">
                             If you authorize our app to access your Gmail
                             account, we may collect and process the following
                             information:
