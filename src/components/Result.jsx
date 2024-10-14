@@ -47,10 +47,10 @@ const Result = ({
               setIsGridView(!isGridView)
             }}
           >
-            {isGridView ? <LayoutGrid></LayoutGrid> : <List></List>}
+            {isGridView ? <LayoutGrid /> : <List />}
           </button>
         </div>
-        <div className="flex gap-3 w-full sm:w-fit  items-center justify-between sm:justify-normal ">
+        <div className="flex gap-3 w-full sm:w-fit items-center justify-between sm:justify-normal">
           <select
             onChange={(e) => setShortBy(e.currentTarget.value)}
             className="bg-slate-200 p-2 rounded-md"
@@ -61,6 +61,7 @@ const Result = ({
             <option value={'market_cap'}>Market Value</option>
             <option value={'quantity'}>Quantity</option>
             <option value={'percentage_of_aum'}>Percentage of AUM</option>
+            <option value={'fScore'}>FScore</option>
           </select>
           <Button
             onClick={() => {
@@ -111,6 +112,8 @@ const Result = ({
                   toNumber(a['Percentage of AUM']) -
                   toNumber(b['Percentage of AUM'])
                 )
+              } else if (shortBy === 'fScore') {
+                return toNumber(a.fScore) - toNumber(b.fScore)
               } else {
                 return 0
               }
@@ -173,6 +176,8 @@ const Result = ({
                     toNumber(a['Percentage of AUM']) -
                     toNumber(b['Percentage of AUM'])
                   )
+                } else if (shortBy === 'fScore') {
+                  return toNumber(a.fScore) - toNumber(b.fScore)
                 } else {
                   return 0
                 }
