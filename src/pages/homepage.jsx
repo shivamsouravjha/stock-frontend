@@ -30,6 +30,7 @@ const Homepage = () => {
   const [showSamplePreview, setShowSamplePreview] = useState(false)
   const [samplePreviewData, setSamplePreviewData] = useState(null)
   const [showFilePreview, setShowFilePreview] = useState(false)
+  const [isGridView, setIsGridView] = useState(true)
 
   useEffect(() => {
     ReactGA.send({ hitType: 'pageview', page: '/homepage' })
@@ -72,7 +73,6 @@ const Homepage = () => {
           jsonObjects.forEach((jsonString) => {
             try {
               const stockDetail = JSON.parse(jsonString)
-
               // add filter on ISIN to remove duplicate stock
               setStockDetails((prevDetails) => {
                 const uniqueStocks = [...prevDetails, stockDetail].filter(
@@ -81,7 +81,6 @@ const Homepage = () => {
                 )
                 return uniqueStocks
               })
-
               ReactGA.event({
                 category: 'Stock',
                 action: 'Added stock detail',
@@ -255,13 +254,15 @@ const Homepage = () => {
         setSearch={setSearch}
         shortBy={shortBy}
         setShortBy={setShortBy}
+        isGridView={isGridView}
+        setIsGridView={setIsGridView}
         stockDetails={stockDetails}
       />
     )
   }
 
   return (
-    <div className="w-full min-h-screen p-6 bg-gray-100">
+    <div className="w-full min-h-[50%] p-6 bg-gray-100">
       <div className="max-w-4xl mx-auto">
         <div className="mb-[80px] text-center"></div>
 
@@ -294,7 +295,7 @@ const Homepage = () => {
             </div>
             <div className="flex flex-col gap-3 items-center">
               <label
-                className="px-3 mt-3 justify-center py-1 bg-primary text-white rounded-md flex gap-2 items-center cursor-pointer"
+                className="px-3 mt-3 justify-center py-1 bg-primaryColor text-white rounded-md flex gap-2 items-center cursor-pointer"
                 htmlFor="file-upload"
               >
                 {loading ? 'Uploading ...' : 'Upload'}

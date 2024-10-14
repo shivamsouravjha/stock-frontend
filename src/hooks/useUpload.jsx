@@ -80,8 +80,8 @@ const useUpload = () => {
               try {
                 const jsonObject = JSON.parse(line)
                 setStockDetails((prev) => [...prev, jsonObject])
-              } catch (e) {
-                console.error('Invalid JSON:', line + e.message)
+              } catch {
+                console.error('Invalid JSON:', line)
               }
             }
           }

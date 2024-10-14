@@ -2,7 +2,7 @@
 
 This project is a React-based frontend that allows users to upload `.xlsx` files containing stock data, stream stock information from a backend API, and display detailed stock information using styled components.
 
-[Sample XLSX file here](https://github.com/shivamsouravjha/stock-frontend/blob/master/dsp-tax-saver-fund.xlsx)
+[Sample XLSX file here](https://github.com/shivamsouravjha/stock-frontend/blob/master/public/sample.xlsx)
 
 ## Features
 
@@ -21,7 +21,7 @@ This project is a React-based frontend that allows users to upload `.xlsx` files
 
 ## Installation and Setup
 
-To get the project running locally, follow these steps:
+This project uses Yarn as the package manager. Please follow the instructions below to get the project running locally.
 
 1. **Clone the repository**:
 
@@ -33,16 +33,16 @@ To get the project running locally, follow these steps:
 2. **Install dependencies**:
 
    ```bash
-   npm install
+   yarn install
    ```
 
 3. **Run the development server**:
 
    ```bash
-   npm start
+   yarn dev
    ```
 
-   The application will be available at `http://localhost:3000`.
+   The application will be available at `http://localhost:5173`.
 
 ## File Structure
 
