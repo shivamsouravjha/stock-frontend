@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import 'tailwindcss/tailwind.css'
 import Homepage from './pages/homepage'
 import AppWrapper from './components/AppWrapper'
+import ScanMutualFunds from './pages/scanMutualFunds'
 import Agreement from './pages/agreement'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import ReactGA from 'react-ga'
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         element: <Agreement />,
         path: '/agreement',
+      },
+      {
+        element: <ScanMutualFunds />,
+        path: '/scanMutualFunds',
       },
     ],
   },

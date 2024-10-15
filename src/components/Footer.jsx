@@ -8,7 +8,7 @@ const Footer = () => {
           <Link to={'/'}>
             <div className="flex gap-3 items-center pb-4">
               <img src="/icon.png" alt="logo" width={44} height={44} />
-              <h1 className="font-bold">StockSight</h1>
+              <h1 className="font-bold">STOCKSIGHT</h1>
             </div>
           </Link>
         </div>
@@ -36,6 +36,20 @@ const Footer = () => {
             Revamp the UI📺
           </Link>
         </div>
+      </div>
+
+      <hr className="border-gray-300 w-[87%] mx-auto my-4" />
+      <div className="container mx-auto px-4 mt-4">
+        <h3 className="text-xl font-bold mb-4">About Us</h3>
+        <p className="mb-4">
+          Our platform provides investors with insights into where mutual funds
+          are investing their money. By leveraging mutual fund portfolio
+          disclosures from Excel sheets or Gmail, we identify the stocks that
+          mutual funds have invested in and provide detailed ratings based on
+          multiple factors, including F9 scores and overall performance. This
+          tool helps investors track mutual fund stock allocations and assess
+          the potential of individual stocks.
+        </p>
       </div>
 
       <hr className="border-gray-300 w-[87%] mx-auto my-4" />
