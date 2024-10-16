@@ -21,8 +21,7 @@
                 "url": "https://www.stocksight.online/projects/frontend"
             },
             "repositoryUrl": {
-                "url": "https://github.com/shivamsouravjha/stock-frontend",
-                "wellKnown": "https://github.com/shivamsouravjha/stock-frontend/blob/main/.well-known/funding-manifest-urls"
+                "url": "https://github.com/shivamsouravjha/stock-frontend"
             },
             "licenses": ["spdx:MIT"],
             "tags": ["frontend", "fintech", "mutual-funds", "stocks", "investments"]
@@ -35,8 +34,7 @@
                 "url": "https://www.stocksight.online/projects/backend"
             },
             "repositoryUrl": {
-                "url": "https://github.com/shivamsouravjha/stock-backend",
-                "wellKnown": "https://github.com/shivamsouravjha/stock-backend/blob/main/.well-known/funding-manifest-urls"
+                "url": "https://github.com/shivamsouravjha/stock-backend"
             },
             "licenses": ["spdx:MIT"],
             "tags": ["backend", "API", "fintech", "mutual-funds", "stocks"]
