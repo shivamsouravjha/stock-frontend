@@ -6,45 +6,53 @@
         "name": "Shivam Sourav Jha",
         "email": "shivamsouravjha@gmail.com",
         "phone": "",
-        "description": "I’m building an open-source fintech project aimed at simplifying investments and providing users with accessible insights. With the goal of empowering investors, I work on both backend and frontend solutions to deliver a seamless experience. I’m currently seeking credits from Zerodha to fetch accurate financial data."
-    },
-    "projects": [{
-        "guid": "stock-frontend",
-        "name": "Stock Frontend",
-        "description": "The Stock Frontend project offers an interactive platform to visualize stock and mutual fund data. It complements the backend by providing a user-friendly dashboard for investors. This project helps users explore their investments and analyze data fetched from various sources.",
+        "description": "I’m building an open-source fintech project aimed at simplifying investments and providing users with accessible insights. With the goal of empowering investors, I work on both backend and frontend solutions to deliver a seamless experience. I’m currently seeking credits from Zerodha to fetch accurate financial data.",
         "webpageUrl": {
-            "url": "https://stocksight.online"
-        },
-        "repositoryUrl": {
-            "url": "https://github.com/shivamsouravjha/stock-frontend"
-        },
-        "licenses": ["spdx:MIT"],
-        "tags": ["frontend", "fintech", "mutual-funds", "stocks", "investments"]
+            "url": "https://www.stocksight.online/",
+            "wellKnown": "https://www.stocksight.online/funding.json"
+        }
     },
-    {
-        "guid": "stock-backend",
-        "name": "Stock Backend",
-        "description": "The Stock Backend provides data APIs and serves as the core engine for fetching mutual fund details. It powers the frontend and ensures the accuracy of financial data. In 2024, the backend domain was secured for just ₹89, ensuring cost-effective operations.",
-        "webpageUrl": {
-            "url": "https://github.com/shivamsouravjha/stock-backend"
+    "projects": [
+        {
+            "guid": "stock-frontend",
+            "name": "Stock Frontend",
+            "description": "The Stock Frontend project offers an interactive platform to visualize stock and mutual fund data. It complements the backend by providing a user-friendly dashboard for investors. This project helps users explore their investments and analyze data fetched from various sources.",
+            "webpageUrl": {
+                "url": "https://www.stocksight.online/projects/frontend"
+            },
+            "repositoryUrl": {
+                "url": "https://github.com/shivamsouravjha/stock-frontend",
+                "wellKnown": "https://github.com/shivamsouravjha/stock-frontend/blob/main/.well-known/funding-manifest-urls"
+            },
+            "licenses": ["spdx:MIT"],
+            "tags": ["frontend", "fintech", "mutual-funds", "stocks", "investments"]
         },
-        "repositoryUrl": {
-            "url": "https://github.com/shivamsouravjha/stock-backend"
-        },
-        "licenses": ["spdx:MIT"],
-        "tags": ["backend", "API", "fintech", "mutual-funds", "stocks"]
-    }],
+        {
+            "guid": "stock-backend",
+            "name": "Stock Backend",
+            "description": "The Stock Backend provides data APIs and serves as the core engine for fetching mutual fund details. It powers the frontend and ensures the accuracy of financial data. In 2024, the backend domain was secured for just ₹89, ensuring cost-effective operations.",
+            "webpageUrl": {
+                "url": "https://www.stocksight.online/projects/backend"
+            },
+            "repositoryUrl": {
+                "url": "https://github.com/shivamsouravjha/stock-backend",
+                "wellKnown": "https://github.com/shivamsouravjha/stock-backend/blob/main/.well-known/funding-manifest-urls"
+            },
+            "licenses": ["spdx:MIT"],
+            "tags": ["backend", "API", "fintech", "mutual-funds", "stocks"]
+        }
+    ],
     "funding": {
         "channels": [
             {
                 "guid": "upi",
-                "type": "payment-provider",
+                "type": "bank",
                 "address": "7762827770@axisb",
                 "description": "Support the project via UPI."
             },
             {
                 "guid": "github-sponsors",
-                "type": "sponsorship-platform",
+                "type": "payment-provider",
                 "address": "https://github.com/sponsors/shivamsouravjha",
                 "description": "Sponsor the project via GitHub Sponsors."
             }
@@ -58,7 +66,7 @@
                 "amount": 100,
                 "currency": "USD",
                 "frequency": "one-time",
-                "channels": ["upi", "stripe", "github-sponsors"]
+                "channels": ["upi", "github-sponsors"]
             },
             {
                 "guid": "intermediate-support",
@@ -68,7 +76,7 @@
                 "amount": 500,
                 "currency": "USD",
                 "frequency": "one-time",
-                "channels": ["upi", "stripe", "github-sponsors"]
+                "channels": ["upi", "github-sponsors"]
             },
             {
                 "guid": "advanced-support",
@@ -78,7 +86,7 @@
                 "amount": 1000,
                 "currency": "USD",
                 "frequency": "one-time",
-                "channels": ["upi", "stripe", "github-sponsors"]
+                "channels": ["upi", "github-sponsors"]
             }
         ],
         "history": [
