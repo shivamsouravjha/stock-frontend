@@ -21,10 +21,19 @@
                 "url": "https://www.stocksight.online/projects/frontend"
             },
             "repositoryUrl": {
-                "url": "https://github.com/shivamsouravjha/stock-frontend"
+                "url": "https://github.com/shivamsouravjha/stock-frontend",
+                "wellKnown": "https://github.com/shivamsouravjha/stock-frontend/blob/master/.well-known/funding-manifest-urls"
             },
-            "licenses": ["spdx:MIT"],
-            "tags": ["frontend", "fintech", "mutual-funds", "stocks", "investments"]
+            "licenses": [
+                "spdx:MIT"
+            ],
+            "tags": [
+                "frontend",
+                "fintech",
+                "mutual-funds",
+                "stocks",
+                "investments"
+            ]
         },
         {
             "guid": "stock-backend",
@@ -34,10 +43,19 @@
                 "url": "https://www.stocksight.online/projects/backend"
             },
             "repositoryUrl": {
-                "url": "https://github.com/shivamsouravjha/stock-backend"
+                "url": "https://github.com/shivamsouravjha/stock-backend",
+                "wellKnown": "https://github.com/shivamsouravjha/stock-backend/blob/master/.well-known/funding-manifest-urls"
             },
-            "licenses": ["spdx:MIT"],
-            "tags": ["backend", "API", "fintech", "mutual-funds", "stocks"]
+            "licenses": [
+                "spdx:MIT"
+            ],
+            "tags": [
+                "backend",
+                "API",
+                "fintech",
+                "mutual-funds",
+                "stocks"
+            ]
         }
     ],
     "funding": {
@@ -64,7 +82,10 @@
                 "amount": 100,
                 "currency": "USD",
                 "frequency": "one-time",
-                "channels": ["upi", "github-sponsors"]
+                "channels": [
+                    "upi",
+                    "github-sponsors"
+                ]
             },
             {
                 "guid": "intermediate-support",
@@ -74,7 +95,10 @@
                 "amount": 500,
                 "currency": "USD",
                 "frequency": "one-time",
-                "channels": ["upi", "github-sponsors"]
+                "channels": [
+                    "upi",
+                    "github-sponsors"
+                ]
             },
             {
                 "guid": "advanced-support",
@@ -84,7 +108,10 @@
                 "amount": 1000,
                 "currency": "USD",
                 "frequency": "one-time",
-                "channels": ["upi", "github-sponsors"]
+                "channels": [
+                    "upi",
+                    "github-sponsors"
+                ]
             }
         ],
         "history": [
