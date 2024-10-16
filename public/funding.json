@@ -9,7 +9,7 @@
         "description": "I’m building an open-source fintech project aimed at simplifying investments and providing users with accessible insights. With the goal of empowering investors, I work on both backend and frontend solutions to deliver a seamless experience. I’m currently seeking credits from Zerodha to fetch accurate financial data.",
         "webpageUrl": {
             "url": "https://www.stocksight.online/",
-            "wellKnown": "https://www.stocksight.online/funding.json"
+            "wellKnown": "https://www.stocksight.online/.well-known/funding-manifest-urls"
         }
     },
     "projects": [
