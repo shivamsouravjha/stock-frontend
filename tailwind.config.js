@@ -56,6 +56,15 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      keyframes: {
+        slideInFromTop: {
+          '0%': { opacity: 0, transform: 'translateY(-50px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        slideInFromTop: 'slideInFromTop 0.8s ease-out forwards',
+      },
     },
   },
   plugins: [tailwindcssAnimate],
