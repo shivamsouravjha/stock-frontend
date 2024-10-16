@@ -5,11 +5,7 @@
       "headers": [
         {
           "key": "Content-Type",
-          "value": "application/json"
-        },
-        {
-          "key": "Content-Disposition",
-          "value": "inline"
+          "value": "text/plain"
         }
       ]
     }
