@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import lottie from 'lottie-web'
 import waveAnimation from '../animation/homepage.json' // Ensure the path is correct
+import ReactGA from 'react-ga'
 
 const Homepage = () => {
   const animationContainer = useRef(null)
@@ -19,11 +20,7 @@ const Homepage = () => {
   }, [])
 
   const handleButtonClick = () => {
-    window.gtag('event', 'button_click', {
-      event_category: 'button',
-      event_label: 'Discover More',
-      value: 1,
-    })
+    ReactGA.send({ hitType: 'DiscoverMore', page: '/homepage' })
   }
 
   return (
