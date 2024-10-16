@@ -1,3 +1,17 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  "headers": [
+    {
+      "source": "/.well-known/funding-manifest-urls",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/.well-known/funding-manifest-urls", "destination": "/public/.well-known/funding-manifest-urls" },
+    { "source": "/(.*)", "destination": "/" }
+  ]
 }
