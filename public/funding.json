@@ -22,7 +22,7 @@
             },
             "repositoryUrl": {
                 "url": "https://github.com/shivamsouravjha/stock-frontend",
-                "wellKnown": "https://github.com/shivamsouravjha/stock-frontend/blob/master/.well-known/funding-manifest-urls"
+                "wellKnown": "https://raw.githubusercontent.com/shivamsouravjha/stock-frontend/master/.well-known/funding-manifest-urls"
             },
             "licenses": [
                 "spdx:MIT"
@@ -44,7 +44,7 @@
             },
             "repositoryUrl": {
                 "url": "https://github.com/shivamsouravjha/stock-backend",
-                "wellKnown": "https://github.com/shivamsouravjha/stock-backend/blob/master/.well-known/funding-manifest-urls"
+                "wellKnown": "https://raw.githubusercontent.com/shivamsouravjha/stock-backend/master/.well-known/funding-manifest-urls"
             },
             "licenses": [
                 "spdx:MIT"
