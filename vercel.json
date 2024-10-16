@@ -6,12 +6,22 @@
         {
           "key": "Content-Type",
           "value": "application/json"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline"
         }
       ]
     }
   ],
   "rewrites": [
-    { "source": "/.well-known/funding-manifest-urls", "destination": "/public/.well-known/funding-manifest-urls" },
-    { "source": "/(.*)", "destination": "/" }
+    {
+      "source": "/.well-known/funding-manifest-urls",
+      "destination": "/public/.well-known/funding-manifest-urls"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
   ]
 }
