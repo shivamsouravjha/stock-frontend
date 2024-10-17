@@ -5,6 +5,7 @@ import {
   List,
   ExternalLink,
   StarIcon,
+  ArrowUpDown,
 } from 'lucide-react'
 import PropsTypes from 'prop-types'
 import Button from './Button'
@@ -18,6 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from './ui/table'
+import { useState } from 'react'
 
 const Result = ({
   stockDetails,
@@ -28,6 +30,32 @@ const Result = ({
   isGridView,
   setIsGridView,
 }) => {
+  const [sortDirection, setSortDirection] = useState('asc')
+
+  const toggleSortDirection = () => {
+    setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'))
+  }
+
+  const sortFunction = (a, b) => {
+    let comparison = 0
+
+    if (shortBy === 'rating') {
+      comparison = toNumber(a.stockRate) - toNumber(b.stockRate)
+    } else if (shortBy === 'market_cap') {
+      comparison =
+        toNumber(a['Market/Fair Value']) - toNumber(b['Market/Fair Value'])
+    } else if (shortBy === 'quantity') {
+      comparison = toNumber(a.Quantity) - toNumber(b.Quantity)
+    } else if (shortBy === 'percentage_of_aum') {
+      comparison =
+        toNumber(a['Percentage of AUM']) - toNumber(b['Percentage of AUM'])
+    } else if (shortBy === 'fScore') {
+      comparison = toNumber(a.fScore) - toNumber(b.fScore)
+    }
+
+    return sortDirection === 'asc' ? comparison : -comparison
+  }
+
   return (
     <div className="pt-20 container mx-auto flex flex-col h-screen p-2">
       <div className="py-2 rounded-md flex-col gap-y-2 sm:gap-y-0 sm:flex-row flex justify-between items-center px-3">
@@ -63,10 +91,16 @@ const Result = ({
             <option value={'percentage_of_aum'}>Percentage of AUM</option>
             <option value={'fScore'}>FScore</option>
           </select>
+
+          <button onClick={toggleSortDirection} className="ml-2">
+            <ArrowUpDown className="h-5 w-5 text-muted-foreground" />
+          </button>
+
           <Button
             onClick={() => {
               setShortBy('none')
               setSearch('')
+              setSortDirection('asc')
             }}
             title={'Reset'}
             icon={<DeleteIcon width={24} height={24} />}
@@ -81,7 +115,6 @@ const Result = ({
                 return true
               } else {
                 let isValid = false
-
                 Object.values(item).forEach((value) => {
                   if (
                     value &&
@@ -93,31 +126,10 @@ const Result = ({
                     isValid = true
                   }
                 })
-
                 return isValid
               }
             })
-            .sort((a, b) => {
-              if (shortBy === 'rating') {
-                return toNumber(a.stockRate) - toNumber(b.stockRate)
-              } else if (shortBy === 'market_cap') {
-                return (
-                  toNumber(a['Market/Fair Value']) -
-                  toNumber(b['Market/Fair Value'])
-                )
-              } else if (shortBy === 'quantity') {
-                return toNumber(a.Quantity) - toNumber(b.Quantity)
-              } else if (shortBy === 'percentage_of_aum') {
-                return (
-                  toNumber(a['Percentage of AUM']) -
-                  toNumber(b['Percentage of AUM'])
-                )
-              } else if (shortBy === 'fScore') {
-                return toNumber(a.fScore) - toNumber(b.fScore)
-              } else {
-                return 0
-              }
-            })
+            .sort(sortFunction)
             .map((stockData) => (
               <StockCard key={stockData.ISIN} stockData={stockData} />
             ))}
@@ -145,7 +157,6 @@ const Result = ({
                   return true
                 } else {
                   let isValid = false
-
                   Object.values(item).forEach((value) => {
                     if (
                       value &&
@@ -157,36 +168,14 @@ const Result = ({
                       isValid = true
                     }
                   })
-
                   return isValid
                 }
               })
-              .sort((a, b) => {
-                if (shortBy === 'rating') {
-                  return toNumber(a.stockRate) - toNumber(b.stockRate)
-                } else if (shortBy === 'market_cap') {
-                  return (
-                    toNumber(a['Market/Fair Value']) -
-                    toNumber(b['Market/Fair Value'])
-                  )
-                } else if (shortBy === 'quantity') {
-                  return toNumber(a.Quantity) - toNumber(b.Quantity)
-                } else if (shortBy === 'percentage_of_aum') {
-                  return (
-                    toNumber(a['Percentage of AUM']) -
-                    toNumber(b['Percentage of AUM'])
-                  )
-                } else if (shortBy === 'fScore') {
-                  return toNumber(a.fScore) - toNumber(b.fScore)
-                } else {
-                  return 0
-                }
-              })
+              .sort(sortFunction)
               .map((stockData) => (
                 <TableRow key={stockData.ISIN}>
                   <TableCell>{stockData['Name of the Instrument']}</TableCell>
                   <TableCell>{stockData['Industry/Rating']}</TableCell>
-
                   <TableCell>{stockData.ISIN}</TableCell>
                   <TableCell>
                     <div className="flex items-center space-x-2">
@@ -194,19 +183,17 @@ const Result = ({
                       <span>{stockData.stockRate}</span>
                     </div>
                   </TableCell>
-
                   <TableCell>{stockData['Market/Fair Value']}</TableCell>
                   <TableCell>{stockData.marketCapValue}</TableCell>
                   <TableCell>{stockData.Quantity}</TableCell>
                   <TableCell>{stockData.fScore}</TableCell>
                   <TableCell>{stockData['Percentage of AUM']}</TableCell>
-
                   <TableCell>
                     <a
                       href={stockData.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className=" text-blue-600 hover:underline"
+                      className="text-blue-600 hover:underline"
                     >
                       <ExternalLink className="ml-1 h-4 w-4" />
                     </a>
