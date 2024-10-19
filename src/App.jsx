@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import 'tailwindcss/tailwind.css'
 import Homepage from './pages/homepage'
+import StocksPage from './pages/StocksPage'
 import AppWrapper from './components/AppWrapper'
 import ScanMutualFunds from './pages/scanMutualFunds'
 import Agreement from './pages/agreement'
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         element: <Homepage />,
         path: '/',
+      },
+      {
+        element: <StocksPage />,
+        path: '/stocks',
       },
       {
         element: <Agreement />,
