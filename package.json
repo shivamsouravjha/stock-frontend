@@ -20,6 +20,7 @@
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.451.0",
     "node-xlsx": "^0.24.0",
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-ga": "^3.3.1",

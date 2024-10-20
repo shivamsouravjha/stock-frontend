@@ -28,10 +28,9 @@ const Homepage = () => {
       <div className="flex flex-col items-center justify-center text-center px-5 py-10 container mx-auto">
         {' '}
         {/* Reduced py-20 to py-10 */}
-        <h1 className="text-4xl md:text-5xl font-bold text-secondaryColor mb-4 animate-slideInFromTop">
-          {' '}
-          {/* Reduced mb-5 to mb-4 */}
-          Find where your money is invested.
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 animate-slideInFromTop">
+          Find where your <span className="text-primaryColor">money</span> is
+          invested.
         </h1>
         <p className="text-lg text-secondaryColor mb-6 animate-slideInFromTop">
           {' '}
