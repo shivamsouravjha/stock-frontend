@@ -4,7 +4,6 @@ import axios from 'axios'
 const StocksPage = () => {
   const [stocks, setStocks] = useState([])
   const [page, setPage] = useState(1)
-  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [visibleFields, setVisibleFields] = useState({
     name: true,
@@ -31,11 +30,9 @@ const StocksPage = () => {
         })
         .filter((stock) => stock && stock.name && stock.stockRate)
       setStocks(stockData)
-      setLoading(false)
     } catch (err) {
       console.error('Error fetching stocks:', err.message)
       setError(err.message)
-      setLoading(false)
     }
   }
 
@@ -47,9 +44,6 @@ const StocksPage = () => {
     setVisibleFields((prev) => ({ ...prev, [field]: !prev[field] }))
   }
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error: {error}</div>
-
   const columns = [
     { key: 'name', label: 'Name' },
     { key: 'marketCap', label: 'Category' },
@@ -58,10 +52,13 @@ const StocksPage = () => {
     { key: 'fScore', label: 'F Score' },
   ]
 
+  if (error)
+    return <div className="text-center text-red-500 mt-8">Error: {error}</div>
+
   return (
     <div className="bg-gray-100 shadow-lg rounded-lg overflow-hidden mt-8">
       <div className="container mx-auto mt-20 mb-8 border border-gray-300 rounded-lg shadow-md p-6 bg-white">
-        <h1 className="text-2xl font-bold mb-4 text-center">STOCKS</h1>
+        <h1 className="text-2xl font-bold mb-4 text-center">Stock Ranking</h1>
 
         <div className="flex flex-wrap justify-center mb-4 p-4 border border-gray-300 rounded-lg bg-gray-100 shadow-md">
           {columns.map((col) => (
