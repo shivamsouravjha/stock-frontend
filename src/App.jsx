@@ -7,6 +7,7 @@ import ScanMutualFunds from './pages/scanMutualFunds'
 import Agreement from './pages/agreement'
 import ReactGA from 'react-ga'
 import { useEffect } from 'react'
+import StockRatingAlgorithm from './pages/stockRatingAlgorithm'
 
 const TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         element: <ScanMutualFunds />,
         path: '/scanMutualFunds',
+      },
+      {
+        element: <StockRatingAlgorithm />,
+        path: '/stockRatingAlgorithm',
       },
     ],
   },
