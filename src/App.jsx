@@ -5,10 +5,8 @@ import StocksPage from './pages/StocksPage'
 import AppWrapper from './components/AppWrapper'
 import ScanMutualFunds from './pages/scanMutualFunds'
 import Agreement from './pages/agreement'
-import { GoogleOAuthProvider } from '@react-oauth/google'
 import ReactGA from 'react-ga'
 import { useEffect } from 'react'
-import StockRatingAlgorithm from './pages/StockRatingAlgorithm'
 
 const TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID
 
@@ -32,11 +30,6 @@ const router = createBrowserRouter([
         element: <ScanMutualFunds />,
         path: '/scanMutualFunds',
       },
-      {
-        element: <StockRatingAlgorithm />,
-        path: '/stockRatingAlgorithm',
-        errorElement: <div>Unexpected Application Error! 404 Not Found</div>,
-      },
     ],
   },
 ])
@@ -51,14 +44,7 @@ function App() {
       })
     }
   }, [])
-  return (
-    <GoogleOAuthProvider
-      clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
-      redirect={import.meta.env.VITE_GOOGLE_REDIRECT_URL}
-    >
-      <RouterProvider router={router} />
-    </GoogleOAuthProvider>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App
