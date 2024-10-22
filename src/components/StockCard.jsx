@@ -1,5 +1,6 @@
 import { ArrowUp, StarIcon } from 'lucide-react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 const StockCard = ({ stockData }) => {
   return (
@@ -69,6 +70,25 @@ const StockCard = ({ stockData }) => {
             </p>
             <p className="text-lg font-semibold">
               {stockData['Percentage of AUM']}
+            </p>
+          </div>
+        </div>
+        <div className="mt-4 relative group">
+          <Link
+            to="/stockRatingAlgorithm"
+            className="text-blue-600 hover:underline"
+          >
+            *Know more
+          </Link>
+          <div className="absolute left-0 top-full mt-2 w-full bg-white p-4 border border-gray-300 rounded-md shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
+            <p className="text-sm font-medium text-muted-foreground">
+              Stock Rating Algorithm - Overview Our stock rating algorithm
+              provides a comprehensive score by analyzing individual stock
+              metrics, trends over time, and comparisons with peer companies.
+              The algorithm uses multiple factors to evaluate a stock’s
+              performance, including financial metrics, trends in quarterly
+              results, and comparisons against industry peers. Click to know
+              more...
             </p>
           </div>
         </div>
