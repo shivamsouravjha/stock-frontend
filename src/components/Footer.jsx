@@ -50,6 +50,14 @@ const Footer = () => {
           tool helps investors track mutual fund stock allocations and assess
           the potential of individual stocks.
         </p>
+        <p className="mb-4">
+          <Link
+            to="/stockRatingAlgorithm"
+            className="text-blue-600 hover:underline"
+          >
+            Click here to know about our rating algorithm
+          </Link>
+        </p>
       </div>
 
       <hr className="border-gray-300 w-[87%] mx-auto my-4" />

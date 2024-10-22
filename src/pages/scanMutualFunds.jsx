@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useGoogleLogin } from '@react-oauth/google'
 import Lottie from 'lottie-react'
 import stockAnimationData from '../animation/stock.json'
 import useUpload from '../hooks/useUpload'
@@ -19,7 +18,7 @@ const ScanMutualFunds = () => {
     handleUploadFile,
     error,
     stockDetails,
-    setStockDetails,
+    // setStockDetails,
     selectedFile,
     previewData,
   } = useUpload()
@@ -35,73 +34,6 @@ const ScanMutualFunds = () => {
   useEffect(() => {
     ReactGA.send({ hitType: 'pageview', page: '/homepage' })
   }, [])
-
-  const googleLogin = useGoogleLogin({
-    scope: 'https://www.googleapis.com/auth/gmail.readonly',
-    onSuccess: async (tokenResponse) => {
-      const { access_token } = tokenResponse
-
-      try {
-        const response = await fetch(
-          'https://stock-backend-hz83.onrender.com/api/fetchGmail',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({ token: access_token }),
-          }
-        )
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`)
-        }
-
-        const reader = response.body.getReader()
-        const decoder = new TextDecoder('utf-8')
-
-        let done = false
-        let accumulatedData = ''
-
-        while (!done) {
-          const { value, done: readerDone } = await reader.read()
-          done = readerDone
-          accumulatedData += decoder.decode(value, { stream: true })
-
-          const jsonObjects = accumulatedData.split('\n').filter(Boolean)
-
-          jsonObjects.forEach((jsonString) => {
-            try {
-              const stockDetail = JSON.parse(jsonString)
-              // add filter on ISIN to remove duplicate stock
-              setStockDetails((prevDetails) => {
-                const uniqueStocks = [...prevDetails, stockDetail].filter(
-                  (stock, index, self) =>
-                    index === self.findIndex((s) => s.ISIN === stock.ISIN)
-                )
-                return uniqueStocks
-              })
-              ReactGA.event({
-                category: 'Stock',
-                action: 'Added stock detail',
-                label: stockDetail.ISIN,
-              })
-            } catch (error) {
-              console.error('Failed to parse stock data:', error, jsonString)
-            }
-          })
-
-          accumulatedData = ''
-        }
-      } catch (error) {
-        console.error(
-          'Error sending token to backend or reading stream:',
-          error
-        )
-      }
-    },
-    onError: () => console.log('Login Failed'),
-  })
 
   const handleConfirmUpload = async () => {
     setIsUploading(true)
@@ -314,13 +246,6 @@ const ScanMutualFunds = () => {
                 id="file-upload"
                 type="file"
               />
-              <button
-                className="px-3 py-1 text-white rounded-md flex gap-2 items-center cursor-pointer"
-                style={{ backgroundColor: '#0F8673' }}
-                onClick={googleLogin}
-              >
-                Sign with Google
-              </button>
             </div>
           </div>
         </div>

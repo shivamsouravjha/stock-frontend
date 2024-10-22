@@ -1,128 +1,103 @@
 {
-    "version": "v1.0.0",
-    "entity": {
-        "type": "individual",
-        "role": "maintainer",
-        "name": "Shivam Sourav Jha",
-        "email": "shivamsouravjha@gmail.com",
-        "phone": "",
-        "description": "I’m building an open-source fintech project aimed at simplifying investments and providing users with accessible insights. With the goal of empowering investors, I work on both backend and frontend solutions to deliver a seamless experience. I’m currently seeking credits from Zerodha to fetch accurate financial data.",
-        "webpageUrl": {
-            "url": "https://www.stocksight.online/",
-            "wellKnown": "https://www.stocksight.online/.well-known/funding-manifest-urls"
-        }
-    },
-    "projects": [
-        {
-            "guid": "stock-frontend",
-            "name": "Stock Frontend",
-            "description": "The Stock Frontend project offers an interactive platform to visualize stock and mutual fund data. It complements the backend by providing a user-friendly dashboard for investors. This project helps users explore their investments and analyze data fetched from various sources.",
-            "webpageUrl": {
-                "url": "https://www.stocksight.online/projects/frontend"
-            },
-            "repositoryUrl": {
-                "url": "https://github.com/shivamsouravjha/stock-frontend",
-                "wellKnown": "https://github.com/shivamsouravjha/stock-frontend/blob/master/.well-known/funding-manifest-urls"
-            },
-            "licenses": [
-                "spdx:MIT"
-            ],
-            "tags": [
-                "frontend",
-                "fintech",
-                "mutual-funds",
-                "stocks",
-                "investments"
-            ]
-        },
-        {
-            "guid": "stock-backend",
-            "name": "Stock Backend",
-            "description": "The Stock Backend provides data APIs and serves as the core engine for fetching mutual fund details. It powers the frontend and ensures the accuracy of financial data. In 2024, the backend domain was secured for just ₹89, ensuring cost-effective operations.",
-            "webpageUrl": {
-                "url": "https://www.stocksight.online/projects/backend"
-            },
-            "repositoryUrl": {
-                "url": "https://github.com/shivamsouravjha/stock-backend",
-                "wellKnown": "https://github.com/shivamsouravjha/stock-backend/blob/master/.well-known/funding-manifest-urls"
-            },
-            "licenses": [
-                "spdx:MIT"
-            ],
-            "tags": [
-                "backend",
-                "API",
-                "fintech",
-                "mutual-funds",
-                "stocks"
-            ]
-        }
-    ],
-    "funding": {
-        "channels": [
-            {
-                "guid": "upi",
-                "type": "bank",
-                "address": "7762827770@axisb",
-                "description": "Support the project via UPI."
-            },
-            {
-                "guid": "github-sponsors",
-                "type": "payment-provider",
-                "address": "https://github.com/sponsors/shivamsouravjha",
-                "description": "Sponsor the project via GitHub Sponsors."
-            }
-        ],
-        "plans": [
-            {
-                "guid": "basic-support",
-                "status": "active",
-                "name": "Basic Support Plan",
-                "description": "Support the project with a $100 contribution.",
-                "amount": 100,
-                "currency": "USD",
-                "frequency": "one-time",
-                "channels": [
-                    "upi",
-                    "github-sponsors"
-                ]
-            },
-            {
-                "guid": "intermediate-support",
-                "status": "active",
-                "name": "Intermediate Support Plan",
-                "description": "Support the project with a $500 contribution.",
-                "amount": 500,
-                "currency": "USD",
-                "frequency": "one-time",
-                "channels": [
-                    "upi",
-                    "github-sponsors"
-                ]
-            },
-            {
-                "guid": "advanced-support",
-                "status": "active",
-                "name": "Advanced Support Plan",
-                "description": "Support the project with a $1,000 contribution.",
-                "amount": 1000,
-                "currency": "USD",
-                "frequency": "one-time",
-                "channels": [
-                    "upi",
-                    "github-sponsors"
-                ]
-            }
-        ],
-        "history": [
-            {
-                "year": 2024,
-                "income": 0,
-                "expenses": 89,
-                "taxes": 0,
-                "currency": "INR",
-                "description": "Secured backend domain for ₹89. Currently seeking Zerodha credits to enhance data fetching."
-            }
-        ]
+  "version": "v1.0.0",
+  "entity": {
+    "type": "individual",
+    "role": "maintainer",
+    "name": "Shivam Sourav Jha",
+    "email": "shivamsouravjha@gmail.com",
+    "phone": "",
+    "description": "I’m building an open-source fintech project aimed at simplifying investments and providing users with accessible insights. With the goal of empowering investors, I work on both backend and frontend solutions to deliver a seamless experience. I’m currently seeking credits from Zerodha to fetch accurate financial data.",
+    "webpageUrl": {
+      "url": "https://www.stocksight.online/",
+      "wellKnown": "https://www.stocksight.online/.well-known/funding-manifest-urls"
     }
+  },
+  "projects": [
+    {
+      "guid": "stock-frontend",
+      "name": "Stock Frontend",
+      "description": "The Stock Frontend project offers an interactive platform to visualize stock and mutual fund data. It complements the backend by providing a user-friendly dashboard for investors. This project helps users explore their investments and analyze data fetched from various sources.",
+      "webpageUrl": {
+        "url": "https://www.stocksight.online/projects/frontend"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/shivamsouravjha/stock-frontend",
+        "wellKnown": "https://github.com/shivamsouravjha/stock-frontend/blob/master/.well-known/funding-manifest-urls"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["frontend", "fintech", "mutual-funds", "stocks", "investments"]
+    },
+    {
+      "guid": "stock-backend",
+      "name": "Stock Backend",
+      "description": "The Stock Backend provides data APIs and serves as the core engine for fetching mutual fund details. It powers the frontend and ensures the accuracy of financial data. In 2024, the backend domain was secured for just ₹89, ensuring cost-effective operations.",
+      "webpageUrl": {
+        "url": "https://www.stocksight.online/projects/backend"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/shivamsouravjha/stock-backend",
+        "wellKnown": "https://github.com/shivamsouravjha/stock-backend/blob/master/.well-known/funding-manifest-urls"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["backend", "API", "fintech", "mutual-funds", "stocks"]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "upi",
+        "type": "bank",
+        "address": "7762827770@axisb",
+        "description": "Support the project via UPI."
+      },
+      {
+        "guid": "github-sponsors",
+        "type": "payment-provider",
+        "address": "https://github.com/sponsors/shivamsouravjha",
+        "description": "Sponsor the project via GitHub Sponsors."
+      }
+    ],
+    "plans": [
+      {
+        "guid": "basic-support",
+        "status": "active",
+        "name": "Basic Support Plan",
+        "description": "Support the project with a $100 contribution.",
+        "amount": 100,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": ["upi", "github-sponsors"]
+      },
+      {
+        "guid": "intermediate-support",
+        "status": "active",
+        "name": "Intermediate Support Plan",
+        "description": "Support the project with a $500 contribution.",
+        "amount": 500,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": ["upi", "github-sponsors"]
+      },
+      {
+        "guid": "advanced-support",
+        "status": "active",
+        "name": "Advanced Support Plan",
+        "description": "Support the project with a $1,000 contribution.",
+        "amount": 1000,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": ["upi", "github-sponsors"]
+      }
+    ],
+    "history": [
+      {
+        "year": 2024,
+        "income": 0,
+        "expenses": 89,
+        "taxes": 0,
+        "currency": "INR",
+        "description": "Secured backend domain for ₹89. Currently seeking Zerodha credits to enhance data fetching."
+      }
+    ]
+  }
 }
