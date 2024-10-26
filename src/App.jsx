@@ -8,6 +8,7 @@ import Agreement from './pages/agreement'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import ReactGA from 'react-ga'
 import { useEffect } from 'react'
+import StockRatingAlgorithm from './pages/StockRatingAlgorithm'
 
 const TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID
 
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
       {
         element: <ScanMutualFunds />,
         path: '/scanMutualFunds',
+      },
+      {
+        element: <StockRatingAlgorithm />,
+        path: '/stockRatingAlgorithm',
+        errorElement: <div>Unexpected Application Error! 404 Not Found</div>,
       },
     ],
   },
