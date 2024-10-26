@@ -43,7 +43,7 @@ const ScanMutualFunds = () => {
 
       try {
         const response = await fetch(
-          'https://stock-backend-hz83.onrender.com/api/fetchGmail',
+          'https://stock-backend-3b3b.onrender.com/api/fetchGmail',
           {
             method: 'POST',
             headers: {
