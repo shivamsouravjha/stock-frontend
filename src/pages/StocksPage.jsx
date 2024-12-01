@@ -16,7 +16,7 @@ const StocksPage = () => {
   const fetchStocks = async (pageNumber) => {
     try {
       const response = await axios.get(
-        `https://stock-backend-3b3b.onrender.com/api/fetchStocks?pageNumber=${pageNumber}`
+        `https://stock-backend-u4kd.onrender.com/api/fetchStocks?pageNumber=${pageNumber}`
       )
       const stockData = response.data
         .trim()

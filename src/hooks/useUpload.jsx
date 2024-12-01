@@ -52,7 +52,7 @@ const useUpload = () => {
         formData.append('files', selectedFile)
 
         const response = await fetch(
-          'https://stock-backend-3b3b.onrender.com/api/uploadXlsx',
+          'https://stock-backend-u4kd.onrender.com/api/uploadXlsx',
           {
             method: 'POST',
             body: formData,
