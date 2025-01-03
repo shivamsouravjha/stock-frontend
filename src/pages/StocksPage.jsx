@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const StocksPage = () => {
   const [stocks, setStocks] = useState([])
@@ -150,6 +151,15 @@ const StocksPage = () => {
           >
             Next
           </button>
+        </div>
+
+        <div className="text-center mt-8">
+          <Link
+            to="/stockRatingAlgorithm"
+            className="text-blue-600 hover:underline"
+          >
+            Learn About Our Rating Algorithm
+          </Link>
         </div>
       </div>
     </div>
