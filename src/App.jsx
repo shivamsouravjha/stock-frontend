@@ -4,6 +4,7 @@ import Homepage from './pages/homepage'
 import StocksPage from './pages/StocksPage'
 import AppWrapper from './components/AppWrapper'
 import ScanMutualFunds from './pages/scanMutualFunds'
+import CompareMutualFundOverlap from './pages/mutualFundsOverlap'
 import Agreement from './pages/agreement'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import ReactGA from 'react-ga'
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         element: <ScanMutualFunds />,
         path: '/scanMutualFunds',
       },
+      {
+        element: <CompareMutualFundOverlap />,
+        path: '/MutualFundOverlap/',
+      }
     ],
   },
 ])
