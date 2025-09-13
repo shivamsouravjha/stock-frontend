@@ -64,7 +64,10 @@ const StocksPage = () => {
     return <div className="text-center text-red-500 mt-8">Error: {error}</div>
 
   const formatNumber = (v) => {
-    const n = Number(v)
+    if (v === null || v === undefined) return '-'
+    // accept numbers or numeric strings with commas, currency symbols, etc.
+    const str = String(v).replace(/,/g, '').replace(/[^0-9.\-]/g, '').trim()
+    const n = Number(str)
     return Number.isFinite(n) ? n.toFixed(2) : '-'
   }
 
